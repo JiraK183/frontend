@@ -24,7 +24,7 @@ function App() {
 
       <Container my="md">
         <SimpleGrid cols={2} spacing="md" breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-
+     
           <Skeleton height={gridHeight} radius="md" animate={false} />
           <Skeleton height={gridHeight} radius="md" animate={false} />
           <Skeleton height={gridHeight} radius="md" animate={false} />
