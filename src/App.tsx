@@ -2,21 +2,27 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { HeaderResponsive } from './components/MainHeader';
-import { Button, Container, Grid, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
+import { Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
 
 
 
 function App() {
   //links: { link: string; label: string }[];
   const linkss=[
-    {link:'1', label:'link1'},
-    {link:'2', label:'link2'},
-    {link:'3', label:'link3'},
+    {link:'', label:'Home'},
+    {link:'', label:'Leaderboards'},
+    {link:'', label:'Store'},
   ]
   const gridHeight = 500;
 
   return (
-    <div>
+    <div style={{backgroundColor:'gray'}}>
+
+      <MantineProvider theme={{
+      colorScheme:'dark',
+      
+      
+    }}>
       <HeaderResponsive
         links={linkss}
       >
@@ -35,23 +41,43 @@ function App() {
         </SimpleGrid>
            
       </Container>
+    </MantineProvider>
+
     </div>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn Reacta
-    //     </a>
-    //   </header>
+
+    
+    // <div>
+
+    //   <HeaderResponsive
+    //     links={linkss}
+    //   >
+    //   </HeaderResponsive>
+
+    //   <Container>
+    //     <SimpleGrid cols={2} breakpoints={[{maxWidth:'md', cols: 1 }]}>
+     
+    //       <Skeleton height={gridHeight} radius="md" animate={false} >
+    //         <Button>sw</Button>
+    //       </Skeleton>
+
+    //       <Skeleton height={gridHeight} radius="md" animate={false} />
+    //       <Skeleton height={gridHeight} radius="md" animate={false} />
+    //       <Skeleton height={gridHeight} radius="md" animate={false} />
+    //     </SimpleGrid>
+           
+    //   </Container>
     // </div>
+
+  );
+}
+
+function WithProvider() {
+  return (
+    <MantineProvider theme={{
+      colorScheme:'dark'
+    }}>
+      <App />
+    </MantineProvider>
   );
 }
 
