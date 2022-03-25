@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { HeaderResponsive } from './components/MainHeader';
+import { FooterSimple } from './components/Footer';
+
 import { Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
 
 
@@ -41,6 +43,10 @@ function App() {
         </SimpleGrid>
            
       </Container>
+
+      <FooterSimple
+      links={linkss}
+      ></FooterSimple>
     </MantineProvider>
 
     </div>
