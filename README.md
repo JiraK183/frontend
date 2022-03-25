@@ -1,4 +1,5 @@
-# Getting Started with Create React App
+![Logo](https://avatars.githubusercontent.com/u/102261451?s=200&v=4)
+# JIRA K183 Frontend
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
