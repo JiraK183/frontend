@@ -24,9 +24,9 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
   const [password, setPassword] = useState('');
 
   function logIn() {
-    if(address && username && password){
+    // if(address && username && password){
       SetIsLoggedIn(true);
-    }
+    // }
   }
 
   return (
