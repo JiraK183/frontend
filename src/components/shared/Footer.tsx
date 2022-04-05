@@ -37,7 +37,7 @@ export function FooterSimple({ links }: FooterSimpleProps) {
   const { classes } = useStyles();
   const items = links.map((link) => (
     <Anchor<'a'>
-      color="dark"
+      color="gray"
       key={link.label}
       href={link.link}
       onClick={(event) => event.preventDefault()}

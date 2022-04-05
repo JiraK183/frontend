@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createStyles, Header, Container, Group, Burger, Paper, Transition } from '@mantine/core';
+import { createStyles, Header, Container, Group, Burger, Paper, Transition, Button } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 //import { MantineLogo } from '../../shared/MantineLogo';
 
@@ -80,9 +80,12 @@ const useStyles = createStyles((theme) => ({
 interface HeaderResponsiveProps {
     children:never[];
   links: { link: string; label: string }[];
+  isLoggedIn: boolean;
+  SetIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+
 }
 
-export function HeaderResponsive({ links }: HeaderResponsiveProps) {
+export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn }: HeaderResponsiveProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
@@ -124,6 +127,9 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
             </Paper>
           )}
         </Transition>
+
+        {isLoggedIn? <Button onClick={() => SetIsLoggedIn(false)}
+        > Logout</Button> : null}
       </Container>
     </Header>
   );
