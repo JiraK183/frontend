@@ -8,7 +8,7 @@ function StatsCard() {
     : theme.colors.gray[7];
 
   return (
-    <div style={{ width: 340, margin: 'auto' }}>
+    <div style={{ margin: 'auto' }}>
       <Card shadow="sm" p="lg">
           <Text weight={500} size="lg">Statistics</Text>
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>

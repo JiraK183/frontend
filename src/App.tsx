@@ -21,9 +21,9 @@ const linkss = [
 ]
 
 const lboardEls = [
-  { name: 'Test', coins: '123' },
-  { name: 'Test', coins: '123' },
-  { name: 'Test', coins: '123' },
+  { user: 'Test', coins: '123' },
+  { user: 'Test', coins: '123' },
+  { user: 'Test', coins: '123' },
 ]
 
 function App() {
@@ -34,7 +34,6 @@ function App() {
 
     <MantineProvider theme={{
       colorScheme: 'dark',
-
     }}
       styles={{
         Container: {
@@ -57,34 +56,31 @@ function App() {
           <AuthenticationForm isLoggedIn={isLoggedIn} SetIsLoggedIn={SetIsLoggedIn}></AuthenticationForm>
         </Container>
           :
-          <Container fluid>
+          <Container fluid style={{flex:''}}>
 
-            <Container size='md'>
-              <Grid >
-              <Grid.Col style={{ maxWidth: 400 }} md={12} lg={6} xl={6}>
+            <Container size='xl'>
+              <Grid columns={12} align='stretch'>
+              <Grid.Col span={6}>
                 <DailyCard />
               </Grid.Col>
-              <Grid.Col style={{ maxWidth: 400 }} md={12} lg={6} xl={6}>
+              <Grid.Col span={6}>
                 <StatsCard />
               </Grid.Col>
-              <Grid.Col style={{ maxWidth: 400 }} md={12} lg={6} xl={6}>
+              <Grid.Col span={6}>
                 <RewardsCard />
               </Grid.Col>
-              <Grid.Col style={{ maxWidth: 400 }} md={12} lg={6} xl={6}>
+              <Grid.Col span={6}>
                 <TasksCard />
               </Grid.Col>
             </Grid>
             </Container>
 
 
-            <Container size='xs' style={{float:'right', position:'relative', top:'-500px', left:'-200px' }}>
+            <Container size='xs' style={{float:'right', position:'relative', top:'-500px' }}>
               <Leaderboard
                 elements={lboardEls}
-
               />
             </Container>
-
-
 
           </Container>
 
