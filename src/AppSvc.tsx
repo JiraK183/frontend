@@ -62,4 +62,11 @@ export default class AppSvc {
     public static removeToken() {
         localStorage.removeItem('userDetails');
     }
+
+    // public static decodeUserInfoFromToken() {
+    //     const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+        
+    //     //var decoded = jwt_decode(token);
+    //     return token;
+    // }
 }

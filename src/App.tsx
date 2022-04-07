@@ -74,6 +74,7 @@ function App() {
         isLeadIn={isLeadIn}
         SetLeadIn={SetLeadIn}
         coins={coins}
+        // userData={AppSvc.decodeUserInfoFromToken()}
       >
       </HeaderResponsive>
 

@@ -91,11 +91,12 @@ interface HeaderResponsiveProps {
   isLeadIn: boolean;
   SetLeadIn: React.Dispatch<React.SetStateAction<boolean>>;
   coins: number;
+  userData?: any;
 
 }
 
 
-export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn, coins }: HeaderResponsiveProps) {
+export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn, coins, userData }: HeaderResponsiveProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
