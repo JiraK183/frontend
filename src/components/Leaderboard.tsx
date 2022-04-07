@@ -5,7 +5,7 @@ interface ILeaderboardsProps {
 }
 
 function Leaderboard({ elements }: ILeaderboardsProps) {
-    debugger;
+    
 
     let place = 0;
     const rows = elements.map((element) => (

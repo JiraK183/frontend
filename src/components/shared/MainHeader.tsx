@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { createStyles, Header, Container, Group, Burger, Paper, Transition, Button } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 import UserInfoHeader from './UserInfoHeader';
+import AppSvc from '../../AppSvc';
 //import { MantineLogo } from '../../shared/MantineLogo';
 
 const HEADER_HEIGHT = 60;
@@ -102,8 +103,11 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
   //when logout
   function Logout() {
     SetShopIn(false);
-    SetIsLoggedIn(false);
     SetLeadIn(false);
+
+    AppSvc.removeToken();
+    SetIsLoggedIn(false);
+
   }
   //when shop on
   function ShopOn() {

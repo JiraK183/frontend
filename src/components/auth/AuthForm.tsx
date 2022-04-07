@@ -12,6 +12,7 @@ import {
   Anchor,
   Space,
 } from '@mantine/core';
+import AppSvc from '../../AppSvc';
 //import { GoogleButton, TwitterButton } from '../SocialButtons/SocialButtons';
 interface AuthFormProps {
   isLoggedIn: boolean;
@@ -23,9 +24,14 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  function logIn() {
+  async function logIn() {
     // if(address && username && password){
-      SetIsLoggedIn(true);
+      const response = await AppSvc.getAuthToken(address,username,password);
+      if(response) {
+        AppSvc.saveTokenInLocalStorage(response.data)
+        SetIsLoggedIn(true);
+      }
+
     // }
   }
 
