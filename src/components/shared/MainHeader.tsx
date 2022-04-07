@@ -33,6 +33,8 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: '100%',
+    width: '99%',
+    maxWidth: 'none'
   },
 
   links: {
@@ -79,7 +81,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface HeaderResponsiveProps {
-    children:never[];
+  children: never[];
   links: { link: string; label: string }[];
   isLoggedIn: boolean;
   SetIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -96,15 +98,15 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
-  
+
   //when logout
-  function Logout() {    
-      SetShopIn(false);
-      SetIsLoggedIn(false);
-      SetLeadIn(false);    
+  function Logout() {
+    SetShopIn(false);
+    SetIsLoggedIn(false);
+    SetLeadIn(false);
   }
   //when shop on
-  function ShopOn(){
+  function ShopOn() {
     SetShopIn(true);
     SetLeadIn(false);
   }
@@ -114,7 +116,7 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
     SetShopIn(false);
   }
   //when home page on
-  function HomeOn(){
+  function HomeOn() {
     SetShopIn(false);
     SetLeadIn(false);
   }
@@ -137,40 +139,45 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
   return (
     <Header height={HEADER_HEIGHT} mb={30} className={classes.root}>
       <Container className={classes.header}>
-      {isLoggedIn? <Container className={classes.header}>
-        {/* <MantineLogo /> */}
-        
-        <Group spacing={10} className={classes.links}>
-        {<Button onClick={HomeOn}
-        > Home</Button>}
-        {<Button onClick={ShopOn}
-        > Store</Button>}
-        {<Button onClick={LeadOn}
-        > Leaderbord</Button>}
-        {/*items*/}
-        </Group>
+        {isLoggedIn ? <Container className={classes.header}>
+          {/* <MantineLogo /> */}
 
-        <Burger
-          opened={opened}
-          onClick={() => toggleOpened()}
-          className={classes.burger}
-          size="sm"
-        />
+          <Group spacing={10} className={classes.links}>
+            {<Button onClick={HomeOn}
+            > Home</Button>}
+            {<Button onClick={ShopOn}
+            > Store</Button>}
+            {<Button onClick={LeadOn}
+            > Leaderbord</Button>}
+            {/*items*/}
+          </Group>
 
-        <Transition transition="pop-top-right" duration={200} mounted={opened}>
-          {(styles) => (
-            <Paper className={classes.dropdown} withBorder style={styles}>
-              {items}
-            </Paper>
-          )}
-        </Transition>       
-        <Container size='xl'>
-        <Button onClick={Logout}
-        > Logout </Button>         
+          <Burger
+            opened={opened}
+            onClick={() => toggleOpened()}
+            className={classes.burger}
+            size="sm"
+          />
+
+          <Transition transition="pop-top-right" duration={200} mounted={opened}>
+            {(styles) => (
+              <Paper className={classes.dropdown} withBorder style={styles}>
+                {items}
+              </Paper>
+            )}
+          </Transition>
+
+          <Group position='right'>
+            {/* temporary place to show coins */}
+            <Button ml={5} radius={20} color={'yellow'}>{coins} JC</Button>
+            <Button onClick={Logout}
+            > Logout </Button>
+          </Group>
+
+
+
         </Container>
-        <Button ml={300} radius={50} color={'yellow'}>{coins} JC</Button>
-        </Container>
-         : null}
+          : null}
       </Container>
     </Header>
   );
