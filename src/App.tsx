@@ -8,6 +8,7 @@ import RewardsCard from './components/CardRewards';
 import StatsCard from './components/CardStats';
 import TasksCard from './components/CardTasks';
 import LeaderBoardCard from './components/CardLeaderBoard';
+import Shop from './components/Shop';
 import Leaderboard from './components/Leaderboard';
 
 import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme, Group } from '@mantine/core';
@@ -29,6 +30,8 @@ const lboardEls = [
 function App() {
 
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
+  const [isShopIn, SetShopIn] = useState(false);
+  const [isLeadIn, SetLeadIn] = useState(false);
 
   return <div>
 
@@ -47,6 +50,10 @@ function App() {
         links={linkss}
         isLoggedIn={isLoggedIn}
         SetIsLoggedIn={SetIsLoggedIn}
+        isShopIn={isShopIn}
+        SetShopIn={SetShopIn}
+        isLeadIn={isLeadIn}
+        SetLeadIn={SetLeadIn}
       >
       </HeaderResponsive>
 
@@ -54,15 +61,23 @@ function App() {
 
         {!isLoggedIn ? <Container size='xs'>
           <AuthenticationForm isLoggedIn={isLoggedIn} SetIsLoggedIn={SetIsLoggedIn}></AuthenticationForm>
+        </Container>                 
+          :isShopIn ?
+          <Container size='xs'>
+        <Shop/> 
+        </Container> 
+          :isLeadIn ?
+          <Container size='xs'>
+        <Leaderboard elements={lboardEls}/> 
         </Container>
-          :
+          :          
           <Container fluid style={{flex:''}}>
 
             <Container size='xl'>
               <Grid columns={12} align='stretch'>
               <Grid.Col span={6}>
-                <DailyCard />
-              </Grid.Col>
+              <DailyCard/>
+              </Grid.Col>            
               <Grid.Col span={6}>
                 <StatsCard />
               </Grid.Col>
@@ -74,8 +89,6 @@ function App() {
               </Grid.Col>
             </Grid>
             </Container>
-
-
             <Container size='xs' style={{float:'right', position:'relative', top:'-500px' }}>
               <Leaderboard
                 elements={lboardEls}
@@ -83,9 +96,7 @@ function App() {
             </Container>
 
           </Container>
-
         }
-
       </Container>
 
       <FooterSimple

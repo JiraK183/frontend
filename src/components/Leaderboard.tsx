@@ -1,7 +1,7 @@
 import { Table, Avatar, Container, Text } from '@mantine/core';
 
 interface ILeaderboardsProps {
-    elements: any[];
+    elements: any[];    
 }
 
 function Leaderboard({ elements }: ILeaderboardsProps) {

@@ -82,13 +82,40 @@ interface HeaderResponsiveProps {
   links: { link: string; label: string }[];
   isLoggedIn: boolean;
   SetIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  isShopIn: boolean;
+  SetShopIn: React.Dispatch<React.SetStateAction<boolean>>;
+  isLeadIn: boolean;
+  SetLeadIn: React.Dispatch<React.SetStateAction<boolean>>;
 
 }
 
-export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn }: HeaderResponsiveProps) {
+
+export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn  }: HeaderResponsiveProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
+  
+  //when logout
+  function Logout() {    
+      SetShopIn(false);
+      SetIsLoggedIn(false);
+      SetLeadIn(false);    
+  }
+  //when shop on
+  function ShopOn(){
+    SetShopIn(true);
+    SetLeadIn(false);
+  }
+  //when leaderbord on
+  function LeadOn() {
+    SetLeadIn(true);
+    SetShopIn(false);
+  }
+  //when home page on
+  function HomeOn(){
+    SetShopIn(false);
+    SetLeadIn(false);
+  }
 
   const items = links.map((link) => (
     <a
@@ -108,9 +135,17 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn }: HeaderRes
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
+      {isLoggedIn? <Container className={classes.header}>
         {/* <MantineLogo /> */}
-        <Group spacing={5} className={classes.links}>
-          {items}
+        
+        <Group spacing={10} className={classes.links}>
+        {<Button onClick={HomeOn}
+        > Home</Button>}
+        {<Button onClick={ShopOn}
+        > Store</Button>}
+        {<Button onClick={LeadOn}
+        > Leaderbord</Button>}
+        {/*items*/}
         </Group>
 
         <Burger
@@ -126,10 +161,12 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn }: HeaderRes
               {items}
             </Paper>
           )}
-        </Transition>
-
-        {isLoggedIn? <Button onClick={() => SetIsLoggedIn(false)}
-        > Logout</Button> : null}
+        </Transition>       
+        <Container size='xl'>
+        <Button onClick={Logout}
+        > Logout </Button>       
+        </Container></Container>
+         : null}
       </Container>
     </Header>
   );
