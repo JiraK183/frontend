@@ -9,7 +9,7 @@ function RewardsCard() {
 
     return (
         <div style={{ margin: 'auto' }}>
-            <Card shadow="sm" p="lg">
+            <Card shadow="sm" p="lg" style={{ height: 300, width: 320}}>
                 <Text weight={500} size="lg">
                     Completed tasks
                 </Text>

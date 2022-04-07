@@ -9,7 +9,7 @@ function DailyCard() {
 
   return (
     <div style={{ margin: 'auto' }}>
-      <Card shadow="sm" p="lg">
+      <Card shadow="sm" p="lg" style={{ height: 300, width: 300}}>
         <Text weight={500} size="lg" >
           Daily reward
         </Text>

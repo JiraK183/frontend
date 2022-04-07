@@ -72,7 +72,23 @@ function App() {
         </Container>
           :          
           <Container fluid style={{flex:''}}>
-
+            
+            <Container>
+      <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
+        <Group direction="column">
+        <DailyCard/>
+        <StatsCard />
+        </Group>
+        <Group direction="column">
+        <RewardsCard />
+        <TasksCard />
+        </Group>
+        <Leaderboard
+                elements={lboardEls}
+              />
+      </SimpleGrid>
+    </Container>
+{/*
             <Container size='xl'>
               <Grid columns={12} align='stretch'>
               <Grid.Col span={6}>
@@ -94,7 +110,7 @@ function App() {
                 elements={lboardEls}
               />
             </Container>
-
+        */}
           </Container>
         }
       </Container>
