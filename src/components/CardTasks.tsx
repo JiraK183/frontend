@@ -9,7 +9,7 @@ function TasksCard() {
 
     return (
         <div style={{ margin: 'auto' }}>
-            <Card shadow="sm" p="lg" style={{ height: 300, width: 320}}>
+            <Card shadow="sm" p="lg" style={{ height: 350, width: 600}}>
                 <Text weight={500} size="lg">My Jira tasks</Text>
                 <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
                     <Button variant="light" color="blue" style={{ marginTop: 14 }}>

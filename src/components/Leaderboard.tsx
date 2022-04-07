@@ -5,19 +5,20 @@ interface ILeaderboardsProps {
 }
 
 function Leaderboard({ elements }: ILeaderboardsProps) {
+    debugger;
 
     let place = 0;
     const rows = elements.map((element) => (
-        <tr key={element}>
+        <tr key={element.name}>
             <td>{place += 1}</td>
             <td>{<Avatar />}</td>
-            <td>{element.user}</td>
-            <td>{element.coins}</td>
+            <td>{element.name}</td>
+            <td>{element.points}</td>
         </tr>
     ))
 
     return (
-        <Container>
+        <Container style={{height:500, width:600}}>
             
             <Text align='center' weight={700}>Leaderboard</Text>
             <Table verticalSpacing="xs" striped>

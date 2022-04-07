@@ -14,6 +14,7 @@ import Leaderboard from './components/Leaderboard';
 import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme, Group } from '@mantine/core';
 import AppSvc from './AppSvc';
 import AuthenticationForm from './components/auth/AuthForm';
+import axios from 'axios';
 
 const linkss = [
   { link: '', label: 'Home' },
@@ -21,17 +22,35 @@ const linkss = [
   { link: '', label: 'Store' },
 ]
 
-const lboardEls = [
-  { user: 'Test', coins: '123' },
-  { user: 'Test', coins: '123' },
-  { user: 'Test', coins: '123' },
-]
-
 function App() {
 
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
   const [isShopIn, SetShopIn] = useState(false);
   const [isLeadIn, SetLeadIn] = useState(false);
+  const [coins, SetCoins] = useState(0);
+  const [leaderboard, setLeaderboard] = useState([]);
+  
+  useEffect(() => {
+    debugger;
+    async function fetchData() {
+      const response = await AppSvc.getLeaderboard();
+      if(JSON.stringify(leaderboard) !== JSON.stringify(response.data.leaderboard)) {
+        setLeaderboard(response.data.leaderboard);
+      }
+    }
+    fetchData();
+  },[leaderboard]);
+  
+  useEffect(() => {
+    async function fetchData() {
+      const response = await AppSvc.getCoins();
+      if(coins !== response.data.coins) {
+        SetCoins(response.data.coins);
+      }
+    }
+    fetchData();
+  }, [coins]);
+
 
   return <div>
 
@@ -54,6 +73,7 @@ function App() {
         SetShopIn={SetShopIn}
         isLeadIn={isLeadIn}
         SetLeadIn={SetLeadIn}
+        coins={coins}
       >
       </HeaderResponsive>
 
@@ -61,57 +81,34 @@ function App() {
 
         {!isLoggedIn ? <Container size='xs'>
           <AuthenticationForm isLoggedIn={isLoggedIn} SetIsLoggedIn={SetIsLoggedIn}></AuthenticationForm>
-        </Container>                 
-          :isShopIn ?
-          <Container size='xs'>
-        <Shop/> 
-        </Container> 
-          :isLeadIn ?
-          <Container size='xs'>
-        <Leaderboard elements={lboardEls}/> 
         </Container>
-          :          
-          <Container fluid style={{flex:''}}>
-            
-            <Container>
-      <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
-        <Group direction="column">
-        <DailyCard/>
-        <StatsCard />
-        </Group>
-        <Group direction="column">
-        <RewardsCard />
-        <TasksCard />
-        </Group>
-        <Leaderboard
-                elements={lboardEls}
-              />
-      </SimpleGrid>
-    </Container>
-{/*
-            <Container size='xl'>
-              <Grid columns={12} align='stretch'>
-              <Grid.Col span={6}>
-              <DailyCard/>
-              </Grid.Col>            
-              <Grid.Col span={6}>
-                <StatsCard />
-              </Grid.Col>
-              <Grid.Col span={6}>
-                <RewardsCard />
-              </Grid.Col>
-              <Grid.Col span={6}>
-                <TasksCard />
-              </Grid.Col>
-            </Grid>
+          : isShopIn ?
+            <Container size='xs'>
+              <Shop />
             </Container>
-            <Container size='xs' style={{float:'right', position:'relative', top:'-500px' }}>
-              <Leaderboard
-                elements={lboardEls}
-              />
-            </Container>
-        */}
-          </Container>
+            : isLeadIn ?
+              <Container size='xs'>
+                <Leaderboard elements={leaderboard} />
+              </Container>
+              :
+              <Container fluid style={{ flex: '' }}>
+
+                <Container fluid>
+                  <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
+                    <Group direction="column">
+                      <DailyCard />
+                      <StatsCard />
+                    </Group>
+                    <Group direction="column">
+                      <RewardsCard />
+                      <TasksCard />
+                    </Group>
+                    <Leaderboard
+                      elements={leaderboard}
+                    />
+                  </SimpleGrid>
+                </Container>
+              </Container>
         }
       </Container>
 

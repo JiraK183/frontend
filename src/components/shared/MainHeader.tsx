@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createStyles, Header, Container, Group, Burger, Paper, Transition, Button } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
+import UserInfoHeader from './UserInfoHeader';
 //import { MantineLogo } from '../../shared/MantineLogo';
 
 const HEADER_HEIGHT = 60;
@@ -86,11 +87,12 @@ interface HeaderResponsiveProps {
   SetShopIn: React.Dispatch<React.SetStateAction<boolean>>;
   isLeadIn: boolean;
   SetLeadIn: React.Dispatch<React.SetStateAction<boolean>>;
+  coins: number;
 
 }
 
 
-export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn  }: HeaderResponsiveProps) {
+export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn, coins }: HeaderResponsiveProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
@@ -133,7 +135,7 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
+    <Header height={HEADER_HEIGHT} mb={30} className={classes.root}>
       <Container className={classes.header}>
       {isLoggedIn? <Container className={classes.header}>
         {/* <MantineLogo /> */}
@@ -164,8 +166,10 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
         </Transition>       
         <Container size='xl'>
         <Button onClick={Logout}
-        > Logout </Button>       
-        </Container></Container>
+        > Logout </Button>         
+        </Container>
+        <Button ml={300} radius={50} color={'yellow'}>{coins} JC</Button>
+        </Container>
          : null}
       </Container>
     </Header>
