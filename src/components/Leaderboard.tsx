@@ -18,7 +18,7 @@ function Leaderboard({ elements }: ILeaderboardsProps) {
     ))
 
     return (
-        <Container style={{height:500, width:600}}>
+        <Container style={{height:500, width:300}}>
             
             <Text align='center' weight={700}>Leaderboard</Text>
             <Table verticalSpacing="xs" striped>
