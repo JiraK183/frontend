@@ -9,11 +9,11 @@ export default class AppSvc {
     public static getCoins() {
 
         const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
-        
+
         return axios.get('https://jira.kurzcode.com/coins/', {
             'headers': {
-                 'Authorization': token
-        }
+                'Authorization': token
+            }
         }).then(res => {
             const data = res;
             return data;
@@ -26,26 +26,30 @@ export default class AppSvc {
 
         return axios.get('https://jira.kurzcode.com/coins/leaderboard', {
             'headers': {
-                 'Authorization': token
-        }
+                'Authorization': token
+            }
         }).then(res => {
             const data = res;
             return data;
         })
     }
 
-    public static getAuthToken( adress: string, username: string, apiKey: string) {
+    public static getAuthToken(adress: string, username: string, apiKey: string) {
+
         // const data = {
         //     "space": "https://k183.atlassian.net/",
         //     "username": "justas.urbonas@ktu.edu",
         //     "api_key": "BJDCs7JdCEMk5aEFCxBrB58E"
         // }
+        // const data = {
+        //     "space": "https://k183.atlassian.net/",
+        //     "username": "deividas.ambrozaitis@ktu.edu",
+        //     "api_key": "mfGkqMuNskiTQE2lmtni371E"
+        // }
         const data = {
             "space": adress,
             "username": username,
             "api_key": apiKey
-        }
-        const options = {
         }
 
         return axios.post('https://jira.kurzcode.com/auth/token', data)
@@ -55,7 +59,7 @@ export default class AppSvc {
             })
     }
 
-    public static saveTokenInLocalStorage(tokenDetails: any) {
+    public static saveTokenInLS(tokenDetails: any) {
         localStorage.setItem('userDetails', JSON.stringify(tokenDetails));
     }
 
@@ -63,9 +67,19 @@ export default class AppSvc {
         localStorage.removeItem('userDetails');
     }
 
+    // public static getToken() {
+    //     if (localStorage.getItem('userDetails') && JSON.parse(`${localStorage.getItem('userDetails')}`).access_token ) {
+    //         const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+    //         return token;
+    //     }
+    //     else{
+    //         return null;
+    //     }
+    // }
+
     // public static decodeUserInfoFromToken() {
     //     const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
-        
+
     //     //var decoded = jwt_decode(token);
     //     return token;
     // }

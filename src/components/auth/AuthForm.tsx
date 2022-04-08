@@ -28,8 +28,10 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
     // if(address && username && password){
       const response = await AppSvc.getAuthToken(address,username,password);
       if(response) {
-        AppSvc.saveTokenInLocalStorage(response.data)
+        AppSvc.saveTokenInLS(response.data);
         SetIsLoggedIn(true);
+      } else {
+        alert('Wrong credentials');
       }
 
     // }
@@ -47,6 +49,7 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
         placeholder="JIRA address"
         label="JIRA address"
         description="e.g. k183.atlassian.net"
+        defaultValue={'k183.atlassian.net'}
         size="md"
         required
         value={address}

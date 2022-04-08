@@ -29,9 +29,15 @@ function App() {
   const [isLeadIn, SetLeadIn] = useState(false);
   const [coins, SetCoins] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
+
+  useEffect(() =>{
+    if(isLoggedIn){
+      SetCoins(0);
+      setLeaderboard([]);
+    }
+  },[isLoggedIn])
   
   useEffect(() => {
-    debugger;
     async function fetchData() {
       const response = await AppSvc.getLeaderboard();
       if(JSON.stringify(leaderboard) !== JSON.stringify(response.data.leaderboard)) {
