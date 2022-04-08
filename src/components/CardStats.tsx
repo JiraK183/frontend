@@ -9,7 +9,7 @@ function StatsCard() {
 
   return (
     <div style={{ margin: 'auto' }}>
-      <Card shadow="sm" p="lg" style={{ height: 350, width: 600}}>
+      <Card shadow="sm" p="lg" style={{ height: 350, width: 400}}>
           <Text weight={500} size="lg">Statistics</Text>
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
         <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>

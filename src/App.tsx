@@ -101,7 +101,7 @@ function App() {
               <Container fluid style={{ flex: '' }}>
 
                 <Container fluid>
-                  <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]}>
+                  <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'lg', cols: 1 }]}>
                     <Group direction="column">
                       <DailyCard />
                       <StatsCard />
@@ -119,7 +119,7 @@ function App() {
         }
       </Container>
 
-      {/* <FooterSimple
+       {/*<FooterSimple
         links={linkss}
       ></FooterSimple> */}
 
