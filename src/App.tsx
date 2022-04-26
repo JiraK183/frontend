@@ -91,7 +91,7 @@ function App() {
         </Container>
           : isShopIn ?
             <Container size='xs'>
-              <Shop />
+              <Shop elements={leaderboard} />
             </Container>
             : isLeadIn ?
               <Container size='xs'>
