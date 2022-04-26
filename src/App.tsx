@@ -63,7 +63,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const response = await AppSvc.getStats();
-      if(stats === {} && JSON.stringify(stats) !== JSON.stringify(response.data) ) {
+      if(stats.toString().length === 0) {
         SetStats(response.data);
       }
     }
