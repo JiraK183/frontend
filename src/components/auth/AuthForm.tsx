@@ -20,7 +20,7 @@ interface AuthFormProps {
 }
 
 function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState('https://k183.atlassian.net');
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
@@ -49,7 +49,6 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
         placeholder="JIRA address"
         label="JIRA address"
         description="e.g. k183.atlassian.net"
-        defaultValue={'k183.atlassian.net'}
         size="md"
         required
         value={address}
@@ -73,7 +72,7 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
       <PasswordInput
         placeholder="API Key"
         label="API Key"
-        description="JIRA Access API Key"
+        description="JIRA Access API Key 2XNfY3Gre4lKrRGXUkrl42CE"
         size="md"
         required
         value={password}

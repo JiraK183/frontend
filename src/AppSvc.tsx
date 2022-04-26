@@ -35,17 +35,6 @@ export default class AppSvc {
     }
 
     public static getAuthToken(adress: string, username: string, apiKey: string) {
-
-        // const data = {
-        //     "space": "https://k183.atlassian.net/",
-        //     "username": "justas.urbonas@ktu.edu",
-        //     "api_key": "BJDCs7JdCEMk5aEFCxBrB58E"
-        // }
-        // const data = {
-        //     "space": "https://k183.atlassian.net/",
-        //     "username": "deividas.ambrozaitis@ktu.edu",
-        //     "api_key": "mfGkqMuNskiTQE2lmtni371E"
-        // }
         const data = {
             "space": adress,
             "username": username,
@@ -65,6 +54,32 @@ export default class AppSvc {
 
     public static removeToken() {
         localStorage.removeItem('userDetails');
+    }
+
+    public static getStats() {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        return axios.get('https://jira.kurzcode.com/statistics/', {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            return data;
+        })
+    }
+
+    public static getActiveStories() {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        return axios.get('https://jira.kurzcode.com/stories/active', {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            return data;
+        })
     }
 
     // public static getToken() {

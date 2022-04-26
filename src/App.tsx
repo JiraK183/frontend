@@ -29,6 +29,7 @@ function App() {
   const [isLeadIn, SetLeadIn] = useState(false);
   const [coins, SetCoins] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
+  const [stats, SetStats] = useState({});
 
   useEffect(() =>{
     if(isLoggedIn){
@@ -36,18 +37,8 @@ function App() {
       setLeaderboard([]);
     }
   },[isLoggedIn])
-  
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getLeaderboard();
-      if(JSON.stringify(leaderboard) !== JSON.stringify(response.data.leaderboard)) {
-        setLeaderboard(response.data.leaderboard);
-      }
-    }
-    fetchData();
-  },[leaderboard]);
-  
-  useEffect(() => {
+
+    useEffect(() => {
     async function fetchData() {
       const response = await AppSvc.getCoins();
       if(coins !== response.data.coins) {
@@ -57,6 +48,25 @@ function App() {
     fetchData();
   }, [coins]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await AppSvc.getLeaderboard();
+      if(JSON.stringify(leaderboard) !== JSON.stringify(response.data.leaderboard)) {
+        setLeaderboard(response.data.leaderboard);
+      }
+    }
+    fetchData();
+  },[leaderboard]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await AppSvc.getStats();
+      if(!JSON.stringify(stats) /* !== JSON.stringify(response.data)*/ ) {
+        SetStats(response.data);
+      }
+    }
+    fetchData();
+  },[stats]);
 
   return <div>
 
@@ -104,7 +114,7 @@ function App() {
                   <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'lg', cols: 1 }]}>
                     <Group direction="column">
                       <DailyCard />
-                      <StatsCard />
+                      <StatsCard stats={stats}/>
                     </Group>
                     <Group direction="column">
                       <RewardsCard />
