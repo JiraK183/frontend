@@ -30,6 +30,7 @@ function App() {
   const [coins, SetCoins] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
   const [stats, SetStats] = useState({});
+  const [actStories, setActStories] = useState([])
 
   useEffect(() =>{
     if(isLoggedIn){
@@ -60,6 +61,16 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
+      const response = await AppSvc.getActiveStories();
+      if(actStories.length === 0 /*!== JSON.stringify(response.data.stories)*/) {
+        setActStories(response.data.stories);
+      }
+    }
+    fetchData();
+  },[actStories]);
+
+  useEffect(() => {
+    async function fetchData() {
       const response = await AppSvc.getStats();
       if(!JSON.stringify(stats) /* !== JSON.stringify(response.data)*/ ) {
         SetStats(response.data);
@@ -67,6 +78,8 @@ function App() {
     }
     fetchData();
   },[stats]);
+
+
 
   return <div>
 
@@ -118,7 +131,7 @@ function App() {
                     </Group>
                     <Group direction="column">
                       <RewardsCard />
-                      <TasksCard />
+                      <TasksCard tasks={actStories}/>
                     </Group>
                     <Leaderboard
                       elements={leaderboard}

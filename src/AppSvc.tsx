@@ -78,6 +78,7 @@ export default class AppSvc {
             }
         }).then(res => {
             const data = res;
+            console.log('activeStories res', data);
             return data;
         })
     }
