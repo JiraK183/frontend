@@ -65,6 +65,7 @@ export default class AppSvc {
             }
         }).then(res => {
             const data = res;
+            console.log('getStats', data);
             return data;
         })
     }
@@ -78,7 +79,21 @@ export default class AppSvc {
             }
         }).then(res => {
             const data = res;
-            console.log('activeStories res', data);
+            console.log('getActiveStories', data);
+            return data;
+        })
+    }
+
+    public static getCompletedTodayStories() {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        return axios.get('https://jira.kurzcode.com/stories/completed-today', {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            console.log('getCompletedTodayStories', data);
             return data;
         })
     }

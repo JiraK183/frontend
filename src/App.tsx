@@ -30,7 +30,8 @@ function App() {
   const [coins, SetCoins] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
   const [stats, SetStats] = useState({});
-  const [actStories, setActStories] = useState([])
+  const [actStories, SetActStories] = useState([]);
+  const [complStories, SetComplStories] = useState([]);
 
   useEffect(() =>{
     if(isLoggedIn){
@@ -61,9 +62,19 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
+      const response = await AppSvc.getStats();
+      if(stats === {} && JSON.stringify(stats) !== JSON.stringify(response.data) ) {
+        SetStats(response.data);
+      }
+    }
+    fetchData();
+  },[stats]);
+
+  useEffect(() => {
+    async function fetchData() {
       const response = await AppSvc.getActiveStories();
       if(actStories.length === 0 /*!== JSON.stringify(response.data.stories)*/) {
-        setActStories(response.data.stories);
+        SetActStories(response.data.stories);
       }
     }
     fetchData();
@@ -71,13 +82,15 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await AppSvc.getStats();
-      if(!JSON.stringify(stats) /* !== JSON.stringify(response.data)*/ ) {
-        SetStats(response.data);
+      const response = await AppSvc.getCompletedTodayStories();
+      if(complStories.length > 1/*!== JSON.stringify(response.data.stories)*/) {
+        SetComplStories(response.data.stories);
       }
     }
     fetchData();
-  },[stats]);
+  },[complStories]);
+
+
 
 
 
@@ -130,7 +143,7 @@ function App() {
                       <StatsCard stats={stats}/>
                     </Group>
                     <Group direction="column">
-                      <RewardsCard />
+                      <RewardsCard complTasks={complStories}/>
                       <TasksCard tasks={actStories}/>
                     </Group>
                     <Leaderboard
