@@ -47,6 +47,7 @@ function App() {
   const [stats, SetStats] = useState('');
   const [actStories, SetActStories] = useState([]);
   const [complStories, SetComplStories] = useState([]);
+  const [shopItems, SetShopItems] = useState([]);
 
   useEffect(() =>{
     if(isLoggedIn){
@@ -105,6 +106,16 @@ function App() {
     fetchData();
   },[complStories]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await AppSvc.getShopItems();
+      if(shopItems.length === 0) {
+        SetShopItems(response.data.products);
+      }
+    }
+    fetchData();
+  },[shopItems]);
+
 
 
 
@@ -144,7 +155,7 @@ function App() {
         </Container>
           : isShopIn ?
             <Container size='xl'>
-              <Shop shopItems={mockShopItems} />
+              <Shop shopItems={shopItems} />
             </Container>
             : isInvIn ?
             <Container size='xl'>
