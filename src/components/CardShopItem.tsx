@@ -18,7 +18,7 @@ function ShopItemCard({ stats }: CardShopItemProps) {
     <div style={{ width: 340, margin: '10px auto' ,}}>
       <Card shadow="sm" p="lg">
         <Card.Section>
-          <Image src={stats.image} height={300} alt="Norway" />
+          <Image src={stats.image} height={300} />
         </Card.Section>
 
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
