@@ -37,7 +37,7 @@ function App() {
   const [isLeadIn, SetLeadIn] = useState(false);
   const [coins, SetCoins] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
-  const [stats, SetStats] = useState({});
+  const [stats, SetStats] = useState('');
   const [actStories, SetActStories] = useState([]);
   const [complStories, SetComplStories] = useState([]);
 
@@ -60,16 +60,6 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await AppSvc.getLeaderboard();
-      if(JSON.stringify(leaderboard) !== JSON.stringify(response.data.leaderboard)) {
-        setLeaderboard(response.data.leaderboard);
-      }
-    }
-    fetchData();
-  },[leaderboard]);
-
-  useEffect(() => {
-    async function fetchData() {
       const response = await AppSvc.getStats();
       if(stats.toString().length === 0) {
         SetStats(response.data);
@@ -77,6 +67,16 @@ function App() {
     }
     fetchData();
   },[stats]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await AppSvc.getLeaderboard();
+      if(JSON.stringify(leaderboard) !== JSON.stringify(response.data.leaderboard)) {
+        setLeaderboard(response.data.leaderboard);
+      }
+    }
+    fetchData();
+  },[leaderboard]);
 
   useEffect(() => {
     async function fetchData() {
@@ -91,7 +91,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const response = await AppSvc.getCompletedTodayStories();
-      if(complStories.length > 1/*!== JSON.stringify(response.data.stories)*/) {
+      if(complStories.length === 0/*!== JSON.stringify(response.data.stories)*/) {
         SetComplStories(response.data.stories);
       }
     }

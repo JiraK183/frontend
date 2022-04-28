@@ -153,7 +153,7 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
             {<Button onClick={ShopOn}
             > Store</Button>}
             {<Button onClick={LeadOn}
-            > Leaderbord</Button>}
+            > Leaderboard</Button>}
             {/*items*/}
           </Group>
 
