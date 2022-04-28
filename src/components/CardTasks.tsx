@@ -18,38 +18,37 @@ function TasksCard({ tasks }: CardTasksProps) {
         <div style={{ margin: 'auto' }}>
             <Card shadow="sm" p="lg" style={{ height: 350, width: 400 }}>
                 <Text weight={500} size="lg">My Jira tasks</Text>
-                <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                    <Button variant="light" color="blue" style={{ marginTop: 14 }}>
-                        Do this
-                    </Button>
-                    <Badge color="pink" variant="light">
-                        Critical
-                    </Badge>
-                </Group>
-                <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                    <Button variant="light" color="blue" style={{ marginTop: 14 }}>
-                        Do that
-                    </Button>
-                    <Badge color="red" variant="light">
-                        High
-                    </Badge>
-                </Group>
-                <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                    <Button variant="light" color="blue" style={{ marginTop: 14 }}>
-                        Do something else
-                    </Button>
-                    <Badge color="yellow" variant="light">
-                        Medium
-                    </Badge>
-                </Group>
                 <Table verticalSpacing="xs" striped>
-                    {/* <thead>
+                    <thead>
                         <tr>
-                            <th>Top #</th>
-                            <th colSpan={2}>User</th>
-                            <th>Coins</th>
+                            <th>Issue ID</th>
+                            <th>Type</th>
+                            <th>Status</th>
                         </tr>
-                    </thead> */}
+                    </thead>
+                    <tbody>
+                    {tasks.map((task: any) => (
+                        <tr key={task.key}>
+                            <td>
+                                <Button variant="light" color="blue" style={{ marginTop: 14 }}>
+                                    {task.key}
+                                </Button>
+                            </td>
+                            <td>
+                                <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+                                    {task.fields.issuetype.name}
+                                </Text>
+                            </td>
+                            <td>
+                                <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+                                    {task.fields.status.name}
+                                </Text>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </Table>
+                {/*
                     <tbody>
                         {tasks.map((task: any) => (
                             <tr key={task.key}>
@@ -59,9 +58,7 @@ function TasksCard({ tasks }: CardTasksProps) {
                                 <td>{task.fields.status.name} </td>
                             </tr>))}
                     </tbody>
-                </Table>
-
-
+                </Table>*/}
             </Card>
         </div>
     );

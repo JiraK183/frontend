@@ -1,87 +1,48 @@
 import React, { useState } from 'react';
 import {TextInput,PasswordInput,Text,Table,Avatar,Container,
-  Paper,Group,PaperProps,Button,Divider,Checkbox,Anchor,Space
+  Paper,Group,PaperProps,Button,Divider,Checkbox,Anchor,Space,Grid
 } from '@mantine/core';
+import ShopItemCard from './CardShopItem';
 //import { GoogleButton, TwitterButton } from '../SocialButtons/SocialButtons';
 interface ShopFormProps {
-  elements: any[];
+  shopItems: any;
 }
 
-function ShopForm({ elements }: ShopFormProps) {
+function ShopForm({ shopItems }: ShopFormProps) {
     
-  /*let place = 0;
-  const row = elements.map((element) => (
-      <tr key={element.name}>          
-          <td>{element.name}</td>          
-      </tr>
-  ))*/
-  const row4 = (
-    <tr>            
-    <td>Preke</td>
-    <td>Preke</td>
-    <td>Preke</td>          
-  </tr>)
-
-const row3 = (
-  <tr>            
-  <td>Preke</td>
-  <td>Preke</td>
-  <td>Preke</td>          
-</tr>)
-
-const row2 = (
-  <tr>            
-  <td>Preke</td>
-  <td>Preke</td>
-  <td>Preke</td>          
-</tr>)
-
-const row1 = (
-  <tr>            
-  <td>Preke</td>
-  <td>Preke</td>
-  <td>Preke</td>          
-</tr>)
-
+const itemsT1 = shopItems.filter((item: any) => item.price >= 25000)
+const itemsT2 = shopItems.filter((item: any) => item.price < 25000 && item.price >= 16000)
+const itemsT3 = shopItems.filter((item: any) => item.price < 16000 && item.price >= 8000)
+const itemsT4 = shopItems.filter((item: any) => item.price < 8000)
 
   return (
-      <Container style={{height:500, width:3000}}>
+      <Container fluid={true}>
           
-          <Text align='center' weight={700}>Store</Text>
-          <Table>
-              <thead>
-                  <tr>
-                      <th>Tier 4 Items</th>                      
-                  </tr>
-              </thead>
-              <tbody>
-                  {row4}
-              </tbody>
-              <thead>
-                  <tr>
-                      <th>Tier 3 Items</th>                      
-                  </tr>
-              </thead>
-              <tbody>
-                  {row3}
-              </tbody>
-              <thead>
-                  <tr>
-                      <th>Tier 2 Items</th>                      
-                  </tr>
-              </thead>
-              <tbody>
-                  {row2}
-              </tbody>
-              <thead>
-                  <tr>
-                      <th>Tier 1 Items</th>                      
-                  </tr>
-              </thead>
-              <tbody>                
-                {row1}                                                
-              </tbody>
-          </Table>
+          <Text align='center' weight={700} size={"xl"}>Store</Text>
+          <Text align='center' weight={700}>Tier 1</Text>
+          <Grid>
+            {itemsT1.map((item: any) => (
+            <Grid.Col md={6} lg={4}><ShopItemCard stats={item}/></Grid.Col>
+          ))}
+          </Grid>
+          <Text align='center' weight={700}>Tier 2</Text>
+          <Grid>
+            {itemsT2.map((item: any) => (
+            <Grid.Col md={6} lg={4}><ShopItemCard stats={item}/></Grid.Col>
+          ))}
+          </Grid>
+          <Text align='center' weight={700}>Tier 3</Text>
+          <Grid>
+            {itemsT3.map((item: any) => (
+            <Grid.Col md={6} lg={4}><ShopItemCard stats={item}/></Grid.Col>
+          ))}
+          </Grid>
+          <Text align='center' weight={700}>Tier 4</Text>
+          <Grid>
+            {itemsT4.map((item: any) => (
+            <Grid.Col md={6} lg={4}><ShopItemCard stats={item}/></Grid.Col>
+          ))}
+          </Grid>
       </Container>
   );
 }
