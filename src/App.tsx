@@ -22,6 +22,14 @@ const linkss = [
   { link: '', label: 'Store' },
 ]
 
+const mockShopItems = [
+  {name: 'Gigachad', price: 25000, description: 'A popular meme depicting an alpha male', image: 'https://i.kym-cdn.com/entries/icons/original/000/026/152/gigachad.jpg'},
+  {name: 'Amogus', price: 16000, description: 'A meme that originated from the popular videogame "Among us"', image:'https://imageproxy.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/341c7d9ff8706a05919690ca33c2edd97c787322e3a0f8708b3b3a0ef7a013ca_1.jpg'},
+  {name: 'Doge', price: 25000, description: 'A classic meme depicting a Shibe Inu breed dog', image:'https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmobile%2F000%2F013%2F564%2Fdoge.jpg'},
+  {name: 'Travis Scott aplogising', price: 8000, description: 'The awful apology video uploaded by Travis Scott where he supposedly apologises for the deaths in Astroworld concert', image:'https://cdn.shopify.com/s/files/1/0610/1680/1519/products/ScreenShot2021-11-22at11.59.26AM_1445x.png?v=1638213525'},
+  {name: 'Ugandan Knucles', price: 4000, description: 'An old meme that depicts a horribly malformed character Knuckles from the "Sonic the hedgehog" franchise. The meme originated from players using the aforementioned character\'s model in a videogame "VR chat"', image:'https://play-lh.googleusercontent.com/Wug4uc-Hgv6Tkq7_IMaYod-cf7WdjSh3esPEA7I-aLtG9FP628XfWKZMA12SjKZ1D3w'}
+]
+
 function App() {
 
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
@@ -126,8 +134,8 @@ function App() {
           <AuthenticationForm isLoggedIn={isLoggedIn} SetIsLoggedIn={SetIsLoggedIn}></AuthenticationForm>
         </Container>
           : isShopIn ?
-            <Container size='xs'>
-              <Shop elements={leaderboard} />
+            <Container size='xl'>
+              <Shop shopItems={mockShopItems} />
             </Container>
             : isLeadIn ?
               <Container size='xs'>
