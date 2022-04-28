@@ -21,12 +21,12 @@ function ShopForm({ shopItems }: ShopFormProps) {
 
   return (
     <Container fluid={true}>
-
+      
       <Modal opened={createItemOpened}
       onClose={() => SetCreateItemOpened(false)}
       title={"Create shop item"}
       >
-        <CreateShopItem/>
+        <CreateShopItem setModalState={SetCreateItemOpened} />
       </Modal>
 
       <Button color={'green'} onClick={() => SetCreateItemOpened(true)}>Add new item</Button>

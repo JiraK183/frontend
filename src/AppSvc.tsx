@@ -98,6 +98,43 @@ export default class AppSvc {
         })
     }
 
+    public static createShopItem(title: string, desc: string, imgUrl: string, price: number) {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        const body = {
+            name: title,
+            description: desc,
+            image_url: imgUrl,
+            price: price
+        }
+
+        return axios.post('https://jira.kurzcode.com/products/', body, {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            console.log('createShopItem', data);
+            return data;
+        })
+    }
+
+    public static getShopItems() {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        return axios.get('https://jira.kurzcode.com/products/', {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            console.log('getShopItems', data);
+            return data;
+        })
+    }
+
+
+
     // public static getToken() {
     //     if (localStorage.getItem('userDetails') && JSON.parse(`${localStorage.getItem('userDetails')}`).access_token ) {
     //         const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;

@@ -88,7 +88,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const response = await AppSvc.getActiveStories();
-      if(actStories.length === 0 /*!== JSON.stringify(response.data.stories)*/) {
+      if(actStories.length === 0 && response.status !== 200 /*!== JSON.stringify(response.data.stories)*/) {
         SetActStories(response.data.stories);
       }
     }
