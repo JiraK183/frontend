@@ -9,6 +9,7 @@ import StatsCard from './components/CardStats';
 import TasksCard from './components/CardTasks';
 import LeaderBoardCard from './components/CardLeaderBoard';
 import Shop from './components/Shop';
+import Inventory from './components/Inventory';
 import Leaderboard from './components/Leaderboard';
 
 import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme, Group } from '@mantine/core';
@@ -30,9 +31,15 @@ const mockShopItems = [
   {name: 'Ugandan Knucles', price: 4000, description: 'An old meme that depicts a horribly malformed character Knuckles from the "Sonic the hedgehog" franchise. The meme originated from players using the aforementioned character\'s model in a videogame "VR chat"', image:'https://play-lh.googleusercontent.com/Wug4uc-Hgv6Tkq7_IMaYod-cf7WdjSh3esPEA7I-aLtG9FP628XfWKZMA12SjKZ1D3w'}
 ]
 
+const mockInventoryItems = [
+  {name: 'Gigachad', price: 25000, description: 'A popular meme depicting an alpha male', image: 'https://i.kym-cdn.com/entries/icons/original/000/026/152/gigachad.jpg'},
+  {name: 'Doge', price: 25000, description: 'A classic meme depicting a Shibe Inu breed dog', image:'https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmobile%2F000%2F013%2F564%2Fdoge.jpg'}
+]
+
 function App() {
 
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
+  const [isInvIn, SetInvIn] = useState(false);
   const [isShopIn, SetShopIn] = useState(false);
   const [isLeadIn, SetLeadIn] = useState(false);
   const [coins, SetCoins] = useState(0);
@@ -124,6 +131,8 @@ function App() {
         isLeadIn={isLeadIn}
         SetLeadIn={SetLeadIn}
         coins={coins}
+        isInvIn={isInvIn}
+        SetInvIn={SetInvIn}
         // userData={AppSvc.decodeUserInfoFromToken()}
       >
       </HeaderResponsive>
@@ -136,6 +145,10 @@ function App() {
           : isShopIn ?
             <Container size='xl'>
               <Shop shopItems={mockShopItems} />
+            </Container>
+            : isInvIn ?
+            <Container size='xl'>
+              <Inventory InvItems={mockInventoryItems} />
             </Container>
             : isLeadIn ?
               <Container size='xs'>

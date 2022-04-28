@@ -90,13 +90,15 @@ interface HeaderResponsiveProps {
   SetShopIn: React.Dispatch<React.SetStateAction<boolean>>;
   isLeadIn: boolean;
   SetLeadIn: React.Dispatch<React.SetStateAction<boolean>>;
+  isInvIn: boolean;
+  SetInvIn: React.Dispatch<React.SetStateAction<boolean>>;
   coins: number;
   userData?: any;
 
 }
 
 
-export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn, coins, userData }: HeaderResponsiveProps) {
+export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn, coins, userData ,SetInvIn}: HeaderResponsiveProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
@@ -105,6 +107,7 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
   function Logout() {
     SetShopIn(false);
     SetLeadIn(false);
+    SetInvIn(false);
 
     AppSvc.removeToken();
     SetIsLoggedIn(false);
@@ -114,16 +117,25 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
   function ShopOn() {
     SetShopIn(true);
     SetLeadIn(false);
+    SetInvIn(false);
   }
   //when leaderbord on
   function LeadOn() {
     SetLeadIn(true);
     SetShopIn(false);
+    SetInvIn(false);
   }
   //when home page on
   function HomeOn() {
     SetShopIn(false);
     SetLeadIn(false);
+    SetInvIn(false);
+  }
+  //when inventory on
+  function InvOn(){
+    SetInvIn(true);
+    SetLeadIn(false);
+    SetShopIn(false);
   }
 
   const items = links.map((link) => (
@@ -154,6 +166,8 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
             > Store</Button>}
             {<Button onClick={LeadOn}
             > Leaderboard</Button>}
+            {<Button onClick={InvOn}
+            > Inventory</Button>}
             {/*items*/}
           </Group>
 
