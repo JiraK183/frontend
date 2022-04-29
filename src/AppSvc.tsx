@@ -133,6 +133,42 @@ export default class AppSvc {
         })
     }
 
+    public static deleteShopItem(itemID: string) {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        const body = {
+            name: itemID,
+        }
+
+        return axios.delete('https://jira.kurzcode.com/products/'+itemID+'/', {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            console.log('deleteShopItem', data);
+            return data;
+        })
+    }
+
+    public static purchaseShopItem(itemID: string) {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        const body = {
+            name: itemID,
+        }
+
+        return axios.get('https://jira.kurzcode.com/products/'+itemID+'/', {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            console.log('deleteShopItem', data);
+            return data;
+        })
+    }
+
 
 
     // public static getToken() {

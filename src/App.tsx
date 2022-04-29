@@ -99,7 +99,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const response = await AppSvc.getCompletedTodayStories();
-      if(complStories.length === 0/*!== JSON.stringify(response.data.stories)*/) {
+      if(complStories.length === 0 && response.status !== 200/*!== JSON.stringify(response.data.stories)*/) {
         SetComplStories(response.data.stories);
       }
     }
