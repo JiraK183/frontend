@@ -15,6 +15,10 @@ function ShopItemCard({ item }: CardShopItemProps) {
     AppSvc.deleteShopItem(itemID);
   }
 
+  function purchaseItem (itemID: string) {
+    AppSvc.purchaseShopItem(itemID);
+  }
+
   const secondaryColor = theme.colorScheme === 'dark'
     ? theme.colors.dark[1]
     : theme.colors.gray[7];
@@ -38,7 +42,7 @@ function ShopItemCard({ item }: CardShopItemProps) {
           {item.description}
         </Text>
 
-        <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }}>
+        <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }} onClick={() => purchaseItem(item.id)}>
           Purchase
         </Button>
       </Card>

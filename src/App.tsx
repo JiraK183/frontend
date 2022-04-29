@@ -48,6 +48,7 @@ function App() {
   const [actStories, SetActStories] = useState([]);
   const [complStories, SetComplStories] = useState([]);
   const [shopItems, SetShopItems] = useState([]);
+  const [userItems, SetUserItems] = useState([]);
 
   useEffect(() =>{
     if(isLoggedIn){
@@ -116,6 +117,16 @@ function App() {
     fetchData();
   },[shopItems]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await AppSvc.getMyItems();
+      if(userItems.length === 0 && response.status !== 200) {
+        SetUserItems(response.data.products);
+      }
+    }
+    fetchData();
+  },[userItems]);
+
 
 
 
@@ -159,7 +170,7 @@ function App() {
             </Container>
             : isInvIn ?
             <Container size='xl'>
-              <Inventory InvItems={mockInventoryItems} />
+              <Inventory InvItems={userItems} />
             </Container>
             : isLeadIn ?
               <Container size='xs'>

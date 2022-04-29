@@ -155,16 +155,29 @@ export default class AppSvc {
         const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
 
         const body = {
-            name: itemID,
         }
 
-        return axios.get('https://jira.kurzcode.com/products/'+itemID+'/', {
+        return axios.post('https://jira.kurzcode.com/products/'+itemID+'/purchase/', body,{
             'headers': {
                 'Authorization': token
             }
         }).then(res => {
             const data = res;
-            console.log('deleteShopItem', data);
+            console.log('purchaseShopItem', data);
+            return data;
+        })
+    }
+
+    public static getMyItems() {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+
+        return axios.get('https://jira.kurzcode.com/products/my', {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            console.log('purchaseShopItem', data);
             return data;
         })
     }
