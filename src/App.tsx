@@ -110,6 +110,16 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const response = await AppSvc.getShopItems();
+      if(userItems.length === 0) {
+        SetUserItems(response.data.products);
+      }
+    }
+    fetchData();
+  },[userItems]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await AppSvc.getShopItems();
       if(shopItems.length === 0) {
         SetShopItems(response.data.products);
       }
@@ -117,15 +127,7 @@ function App() {
     fetchData();
   },[shopItems]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getMyItems();
-      if(userItems.length === 0 && response.status !== 200) {
-        SetUserItems(response.data.products);
-      }
-    }
-    fetchData();
-  },[userItems]);
+
 
 
 
@@ -170,7 +172,7 @@ function App() {
             </Container>
             : isInvIn ?
             <Container size='xl'>
-              <Inventory InvItems={userItems} />
+              <Inventory InvItems={userItems? userItems: []} />
             </Container>
             : isLeadIn ?
               <Container size='xs'>

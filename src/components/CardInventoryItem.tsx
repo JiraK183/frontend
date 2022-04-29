@@ -2,13 +2,13 @@ import { Card, Image, Text, Badge, Button, Group, useMantineTheme } from '@manti
 import { statSync } from 'fs';
 
 interface CardInvItemProps {
-  stats: any;
+  item: any;
 }
 
-function InvItemCard({ stats }: CardInvItemProps) {
+function InvItemCard({ item }: CardInvItemProps) {
   const theme = useMantineTheme();
 
-  console.log(stats);
+  console.log(item);
 
   const secondaryColor = theme.colorScheme === 'dark'
     ? theme.colors.dark[1]
@@ -18,15 +18,15 @@ function InvItemCard({ stats }: CardInvItemProps) {
     <div style={{ width: 340, margin: '10px auto' ,}}>
       <Card shadow="sm" p="lg">
         <Card.Section>
-          <Image src={stats.image} height={300} alt="Norway" />
+          <Image src={item.image} height={300} />
         </Card.Section>
 
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-          <Text weight={500}>{stats.name}</Text>         
+          <Text weight={500}>{item.name}</Text>         
         </Group>
 
         <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-          {stats.description}
+          {item.description}
         </Text>       
       </Card>
     </div>
