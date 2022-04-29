@@ -109,7 +109,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await AppSvc.getShopItems();
+      const response = await AppSvc.getMyItems();
       if(userItems.length === 0) {
         SetUserItems(response.data.products);
       }
@@ -126,12 +126,6 @@ function App() {
     }
     fetchData();
   },[shopItems]);
-
-
-
-
-
-
 
   return <div>
 
