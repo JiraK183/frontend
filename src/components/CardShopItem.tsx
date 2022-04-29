@@ -28,7 +28,7 @@ function ShopItemCard({ item }: CardShopItemProps) {
       <Card shadow="sm" p="lg">
         <Button color='red' style={{float:'right', zIndex:10}} onClick={()=> deleteItem(item.id)}>Remove</Button>
         <Card.Section>
-          <Image src={item.image} height={300} />
+          <Image src={item.image_url} height={300} />
         </Card.Section>
 
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
