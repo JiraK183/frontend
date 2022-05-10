@@ -20,7 +20,6 @@ interface CreateShopItemProps {
     setModalState: any;
 }
 
-
 function CreateShopItem({setModalState}: CreateShopItemProps) {
 
     const [title, setTitle] = useState('');
@@ -30,8 +29,9 @@ function CreateShopItem({setModalState}: CreateShopItemProps) {
 
     function createItem (title: string, desc: string, imgUrl: string, price: number) {
         AppSvc.createShopItem(title, desc, imageUrl,price);
+        window.location.reload();
         setModalState(false);
-    }
+    }   
 
     return (
         <Paper radius="md" p="xl" >

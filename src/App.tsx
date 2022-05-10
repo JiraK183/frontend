@@ -16,6 +16,7 @@ import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMant
 import AppSvc from './AppSvc';
 import AuthenticationForm from './components/auth/AuthForm';
 import axios from 'axios';
+import { useSetState } from '@mantine/hooks';
 
 const linkss = [
   { link: '', label: 'Home' },
@@ -155,8 +156,8 @@ function App() {
       >
       </HeaderResponsive>
 
-      <Container fluid={true}>
-
+        <Container fluid={true}>
+        
         {!isLoggedIn ? <Container size='xs'>
           <AuthenticationForm isLoggedIn={isLoggedIn} SetIsLoggedIn={SetIsLoggedIn}></AuthenticationForm>
         </Container>
@@ -173,8 +174,7 @@ function App() {
                 <Leaderboard elements={leaderboard} />
               </Container>
               :
-              <Container fluid style={{ flex: '' }}>
-
+              <Container fluid style={{ flex: '' }}>                
                 <Container fluid>
                   <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'lg', cols: 1 }]}>
                     <Group direction="column">

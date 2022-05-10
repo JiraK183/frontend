@@ -17,15 +17,15 @@ function ShopForm({shopItems}:ShopFormProps) {
   const itemsT1 = shopItems.filter((item) => item.price >= 25000);
   const itemsT2 = shopItems.filter((item) => item.price < 25000 && item.price >= 16000);
   const itemsT3 = shopItems.filter((item) => item.price < 16000 && item.price >= 8000);
-  const itemsT4 = shopItems.filter((item) => item.price < 8000);
+  const itemsT4 = shopItems.filter((item) => item.price < 8000);  
 
   return (
     <Container fluid={true}>
       <Modal opened={createItemOpened}
       onClose={() => SetCreateItemOpened(false)}
-      title={"Create shop item"}
+      title={"Create shop item"}      
       >
-        <CreateShopItem setModalState={SetCreateItemOpened} />
+        <CreateShopItem setModalState={SetCreateItemOpened} />       
       </Modal>
 
       <Button color={'green'} onClick={() => SetCreateItemOpened(true)}>Add new item</Button>

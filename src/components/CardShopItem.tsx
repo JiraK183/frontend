@@ -13,20 +13,22 @@ function ShopItemCard({ item }: CardShopItemProps) {
 
   function deleteItem (itemID: string) {
     AppSvc.deleteShopItem(itemID);
+    window.location.reload();
   }
 
   function purchaseItem (itemID: string) {
     AppSvc.purchaseShopItem(itemID);
+    window.location.reload();
   }
 
   const secondaryColor = theme.colorScheme === 'dark'
     ? theme.colors.dark[1]
     : theme.colors.gray[7];
-
+     
   return (
     <div style={{ width: 340, margin: '10px auto' ,}}>
       <Card shadow="sm" p="lg">
-        <Button color='red' style={{float:'right', zIndex:10}} onClick={()=> deleteItem(item.id)}>Remove</Button>
+        <Button color='red' style={{float:'right', zIndex:10}} onClick={() => deleteItem(item.id)}>Remove</Button>       
         <Card.Section>
           <Image src={item.image_url} height={300} />
         </Card.Section>
