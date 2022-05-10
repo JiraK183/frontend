@@ -8,8 +8,8 @@ import RewardsCard from './components/CardRewards';
 import StatsCard from './components/CardStats';
 import TasksCard from './components/CardTasks';
 import LeaderBoardCard from './components/CardLeaderBoard';
-import Shop from './components/Shop';
-import Inventory from './components/Inventory';
+import Shop from './components/shop/Shop';
+import Inventory from './components/inventory/Inventory';
 import Leaderboard from './components/Leaderboard';
 
 import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme, Group } from '@mantine/core';
@@ -52,6 +52,15 @@ function App() {
   const [userItems, SetUserItems] = useState([]);
 
   useEffect(() =>{
+    
+    if (!isLoggedIn) {
+      const token = AppSvc.getToken();
+      if(token && token !== null)
+      {
+        SetIsLoggedIn(true);
+      }
+    }
+
     if(isLoggedIn){
       SetCoins(0);
       setLeaderboard([]);

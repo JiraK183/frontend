@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 
 import React, { useState } from 'react';
-import AppSvc from '../AppSvc';
+import AppSvc from '../../AppSvc';
 
 interface CreateShopItemProps {
     setModalState: any;
