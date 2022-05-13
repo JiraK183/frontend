@@ -52,16 +52,17 @@ function App() {
   const [userItems, SetUserItems] = useState([]);
 
   useEffect(() =>{
-    
+    let tempLogin = false;
     if (!isLoggedIn) {
       const token = AppSvc.getToken();
       if(token && token !== null)
       {
         SetIsLoggedIn(true);
+        tempLogin = true;
       }
     }
 
-    if(isLoggedIn){
+    if(isLoggedIn || tempLogin){
       SetCoins(0);
       setLeaderboard([]);
     }
