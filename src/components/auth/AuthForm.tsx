@@ -72,7 +72,7 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
       <PasswordInput
         placeholder="API Key"
         label="API Key"
-        description="JIRA Access API Key 2XNfY3Gre4lKrRGXUkrl42CE"
+        description="JIRA Access API Key"
         size="md"
         required
         value={password}
