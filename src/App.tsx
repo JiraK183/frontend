@@ -45,12 +45,14 @@ function App() {
   const [isLeadIn, SetLeadIn] = useState(false);
   const [coins, SetCoins] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
+  const [medal, setMedal] = useState([]);
   const [stats, SetStats] = useState('');
   const [actStories, SetActStories] = useState([]);
   const [complStories, SetComplStories] = useState([]);
   const [shopItems, SetShopItems] = useState([]);
   const [userItems, SetUserItems] = useState([]);
-
+  
+  
   useEffect(() =>{
     if(isLoggedIn){
       SetCoins(0);
@@ -171,7 +173,7 @@ function App() {
             </Container>
             : isLeadIn ?
               <Container size='xs'>
-                <Leaderboard elements={leaderboard} />
+                <Leaderboard elements={leaderboard}/>
               </Container>
               :
               <Container fluid style={{ flex: '' }}>                
