@@ -14,7 +14,8 @@ function DailyCard() {
     <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        title="To claim daily reward need to make any action in Jira (Ex: replace task from 'IN PROGRESS' to 'DONE')"
+        title="To claim the daily reward you need to finish any task assigned to you in Jira.
+         Extra JC will be gained depending on the amount of story points of the completed task."
       >
         {/* Modal content */}
       </Modal>

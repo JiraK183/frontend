@@ -8,8 +8,8 @@ import RewardsCard from './components/CardRewards';
 import StatsCard from './components/CardStats';
 import TasksCard from './components/CardTasks';
 import LeaderBoardCard from './components/CardLeaderBoard';
-import Shop from './components/Shop';
-import Inventory from './components/Inventory';
+import Shop from './components/shop/Shop';
+import Inventory from './components/inventory/Inventory';
 import Leaderboard from './components/Leaderboard';
 
 import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme, Group } from '@mantine/core';
@@ -54,7 +54,17 @@ function App() {
   
   
   useEffect(() =>{
-    if(isLoggedIn){
+    let tempLogin = false;
+    if (!isLoggedIn) {
+      const token = AppSvc.getToken();
+      if(token && token !== null)
+      {
+        SetIsLoggedIn(true);
+        tempLogin = true;
+      }
+    }
+
+    if(isLoggedIn || tempLogin){
       SetCoins(0);
       setLeaderboard([]);
     }
@@ -93,7 +103,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const response = await AppSvc.getActiveStories();
-      if(actStories.length === 0 && response.status !== 200 /*!== JSON.stringify(response.data.stories)*/) {
+      if(actStories.length === 0 && response.data.stories.length > 0 && response.status === 200 /*!== JSON.stringify(response.data.stories)*/) {
         SetActStories(response.data.stories);
       }
     }

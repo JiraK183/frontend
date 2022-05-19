@@ -177,22 +177,20 @@ export default class AppSvc {
             }
         }).then(res => {
             const data = res;
-            console.log('purchaseShopItem', data);
+            console.log('getMyItems', data);
             return data;
         })
     }
 
-
-
-    // public static getToken() {
-    //     if (localStorage.getItem('userDetails') && JSON.parse(`${localStorage.getItem('userDetails')}`).access_token ) {
-    //         const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
-    //         return token;
-    //     }
-    //     else{
-    //         return null;
-    //     }
-    // }
+    public static getToken() {
+        if (localStorage.getItem('userDetails') && JSON.parse(`${localStorage.getItem('userDetails')}`).access_token ) {
+            const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+            return token;
+        }
+        else{
+            return null;
+        }
+    }
 
     // public static decodeUserInfoFromToken() {
     //     const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;

@@ -1,6 +1,6 @@
 import { Card, Image, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core';
 import { statSync } from 'fs';
-import AppSvc from '../AppSvc';
+import AppSvc from '../../AppSvc';
 
 interface CardShopItemProps {
   item: any;
@@ -27,8 +27,7 @@ function ShopItemCard({ item }: CardShopItemProps) {
      
   return (
     <div style={{ width: 340, margin: '10px auto' ,}}>
-      <Card shadow="sm" p="lg">
-        <Button color='red' style={{float:'right', zIndex:10}} onClick={() => deleteItem(item.id)}>Remove</Button>       
+      <Card shadow="sm" p="lg">     
         <Card.Section>
           <Image src={item.image_url} height={300} />
         </Card.Section>
@@ -44,9 +43,14 @@ function ShopItemCard({ item }: CardShopItemProps) {
           {item.description}
         </Text>
 
-        <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }} onClick={() => purchaseItem(item.id)}>
-          Purchase
-        </Button>
+        <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
+          <Button variant="light" color="blue" style={{ marginTop: 14 }} onClick={() => purchaseItem(item.id)}>
+            Purchase
+          </Button>
+          <Button color='red' style={{ marginTop: 14 }} onClick={() => deleteItem(item.id)}>
+            Remove
+          </Button>
+        </Group>
       </Card>
     </div>
   );

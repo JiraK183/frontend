@@ -18,7 +18,7 @@ function InvItemCard({ item }: CardInvItemProps) {
     <div style={{ width: 340, margin: '10px auto' ,}}>
       <Card shadow="sm" p="lg">
         <Card.Section>
-          <Image src={item.image} height={300} />
+          <Image src={item.image_url} height={300} />
         </Card.Section>
 
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
