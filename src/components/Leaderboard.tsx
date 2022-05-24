@@ -10,14 +10,16 @@ function Leaderboard({ elements }: ILeaderboardsProps) {
     let place = 0;
     const rows = elements.map((element) => (       
         <tr key={element.name}>
-            {place > 2 ?
-            <td><ThemeIcon size="lg" color="dark" >{place += 1}<Medal size={20} color="brown"/></ThemeIcon></td>
+            {place > 2 && place % 2 == 0 ?           
+            <td><ThemeIcon size={40} variant="gradient" gradient={{ from: 'dark', to: 'dark', deg: 35 }} >{place += 1}<Medal size={20} color="#8b0000"/></ThemeIcon></td>
+            : place > 2 && place % 2 == 1 ? 
+            <td><ThemeIcon size={40} color="dark" >{place += 1}<Medal size={20} color="#8b0000"/></ThemeIcon></td>           
             : place == 2?
-            <td><ThemeIcon size="lg" color="dark" >{place += 1}<Medal size={20} color="orange"/></ThemeIcon></td>
+            <td><ThemeIcon size={40} variant="gradient" gradient={{ from: 'dark', to: 'dark', deg: 35 }} >{place += 1}<Medal size={20} color="#CD7F32"/></ThemeIcon></td>
             : place == 1?
-            <td><ThemeIcon size="lg" color="dark" >{place += 1}<Medal size={20} color="silver"/></ThemeIcon></td>
+            <td><ThemeIcon size={40} color="dark" >{place += 1}<Medal size={20} color="silver"/></ThemeIcon></td>
             :
-            <td><ThemeIcon size="lg" color="dark" >{place += 1}<Medal size={20} color="gold"/></ThemeIcon></td>
+            <td><ThemeIcon size={40} variant="gradient" gradient={{ from: 'dark', to: 'dark', deg: 35 }} >{place += 1}<Medal size={20} color="gold"/></ThemeIcon></td>
             }            
             <td>{<Avatar />}</td>           
             <td>{element.name}</td>
@@ -34,7 +36,7 @@ function Leaderboard({ elements }: ILeaderboardsProps) {
                 <thead>
                     <tr>
                         <th>Top #</th>
-                        <th colSpan={2}>User</th>
+                        <th colSpan={4}>User</th>
                         <th>Coins</th>
                     </tr>
                 </thead>
