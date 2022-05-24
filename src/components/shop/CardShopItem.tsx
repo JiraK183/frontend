@@ -4,19 +4,18 @@ import AppSvc from '../../AppSvc';
 
 interface CardShopItemProps {
   item: any;
+  showAdminOptions?: boolean;
 }
 
-function ShopItemCard({ item }: CardShopItemProps) {
+function ShopItemCard({ item, showAdminOptions }: CardShopItemProps) {
   const theme = useMantineTheme();
 
-  console.log(item);
-
-  function deleteItem (itemID: string) {
+  function deleteItem(itemID: string) {
     AppSvc.deleteShopItem(itemID);
     window.location.reload();
   }
 
-  function purchaseItem (itemID: string) {
+  function purchaseItem(itemID: string) {
     AppSvc.purchaseShopItem(itemID);
     window.location.reload();
   }
@@ -24,10 +23,10 @@ function ShopItemCard({ item }: CardShopItemProps) {
   const secondaryColor = theme.colorScheme === 'dark'
     ? theme.colors.dark[1]
     : theme.colors.gray[7];
-     
+
   return (
-    <div style={{ width: 340, margin: '10px auto' ,}}>
-      <Card shadow="sm" p="lg">     
+    <div style={{ width: 340, margin: '10px auto', }}>
+      <Card shadow="sm" p="lg">
         <Card.Section>
           <Image src={item.image_url} height={300} />
         </Card.Section>
@@ -47,9 +46,10 @@ function ShopItemCard({ item }: CardShopItemProps) {
           <Button variant="light" color="blue" style={{ marginTop: 14 }} onClick={() => purchaseItem(item.id)}>
             Purchase
           </Button>
-          <Button color='red' style={{ marginTop: 14 }} onClick={() => deleteItem(item.id)}>
+
+          {showAdminOptions ? <Button color='red' style={{ marginTop: 14 }} onClick={() => deleteItem(item.id)}>
             Remove
-          </Button>
+          </Button> : ''}
         </Group>
       </Card>
     </div>

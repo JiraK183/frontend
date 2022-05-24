@@ -30,7 +30,7 @@ function TasksCard({ tasks }: CardTasksProps) {
                     {tasks.map((task: any) => (
                         <tr key={task.key}>
                             <td>
-                                <Button variant="light" color="blue" style={{ marginTop: 14 }}>
+                                <Button variant="light" color="blue" style={{ marginTop: 14 }} onClick={()=> window.open(task.url, "_blank")}>
                                     {task.key}
                                 </Button>
                             </td>

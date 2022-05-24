@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import jwt_decode from "jwt-decode";
+import jwt from 'jwt-decode'
 
 
 
@@ -192,10 +192,11 @@ export default class AppSvc {
         }
     }
 
-    // public static decodeUserInfoFromToken() {
-    //     const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
-
-    //     //var decoded = jwt_decode(token);
-    //     return token;
-    // }
+    public static decodeUserInfoFromToken() {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+        const userData = jwt(token);
+        const JSONdata = JSON.stringify(userData)
+        console.log('decodeUserInfoFromToken', userData);
+        return JSONdata;
+    }
 }
