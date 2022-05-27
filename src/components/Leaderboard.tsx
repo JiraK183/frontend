@@ -36,7 +36,7 @@ function Leaderboard({ elements }: ILeaderboardsProps) {
                 <thead>
                     <tr>
                         <th>Top #</th>
-                        <th colSpan={4}>User</th>
+                        <th colSpan={2}>User</th>
                         <th>Coins</th>
                     </tr>
                 </thead>
