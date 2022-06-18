@@ -188,7 +188,7 @@ function App() {
                   <Container fluid>
                     <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'lg', cols: 1 }]}>
                       <Group direction="column">
-                        <DailyCard />
+                        <DailyCard complTasks={complStories} />
                         <StatsCard stats={stats} />
                       </Group>
                       <Group direction="column">
