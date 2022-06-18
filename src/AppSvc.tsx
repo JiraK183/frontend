@@ -30,6 +30,7 @@ export default class AppSvc {
             }
         }).then(res => {
             const data = res;
+            console.log('getLeaderboard', data);
             return data;
         })
     }

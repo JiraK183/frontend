@@ -111,6 +111,7 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
 
     AppSvc.removeToken();
     SetIsLoggedIn(false);
+    window.location.reload();
 
   }
   //when shop on

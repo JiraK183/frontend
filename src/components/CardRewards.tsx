@@ -7,6 +7,8 @@ interface CardRewardsProps {
 function RewardsCard({ complTasks }: CardRewardsProps) {
     const theme = useMantineTheme();
 
+    console.log('CompletedTasks', complTasks);
+
     const secondaryColor = theme.colorScheme === 'dark'
         ? theme.colors.dark[1]
         : theme.colors.gray[7];
