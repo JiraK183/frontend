@@ -1,11 +1,13 @@
 import { Card, Image, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core';
 import { statSync } from 'fs';
+import { PulseLoader } from 'react-spinners';
 
 interface CardStatsProps {
   stats: any;
+  isLoading: boolean;
 }
 
-function StatsCard({ stats }: CardStatsProps) {
+function StatsCard({ stats, isLoading }: CardStatsProps) {
   const theme = useMantineTheme();
 
   console.log(stats);
@@ -23,7 +25,7 @@ function StatsCard({ stats }: CardStatsProps) {
             Daily streak:
           </Text>
           <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-            {stats.daily_streak}
+            { !isLoading? stats.daily_streak : <PulseLoader color='gray' speedMultiplier={0.75} size={10}></PulseLoader>}
           </Text>
         </Group>
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
@@ -31,7 +33,7 @@ function StatsCard({ stats }: CardStatsProps) {
             Previous workday profit:
           </Text>
           <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-            {stats.previous_workday_profit}
+            { !isLoading? stats.previous_workday_profit : <PulseLoader color='gray' speedMultiplier={0.75} size={10}></PulseLoader>}
           </Text>
         </Group>
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
@@ -39,7 +41,7 @@ function StatsCard({ stats }: CardStatsProps) {
             Weekly profit:
           </Text>
           <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-            {stats.weekly_profit}
+            { !isLoading? stats.weekly_profit : <PulseLoader color='gray' speedMultiplier={0.75} size={10}></PulseLoader>}
           </Text>
         </Group>
       </Card>

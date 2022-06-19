@@ -1,11 +1,13 @@
 import { Card, Image, Text, Badge, Button, Group, useMantineTheme, Table } from '@mantine/core';
 import { Key } from 'react';
+import { MoonLoader } from 'react-spinners';
 
 interface CardTasksProps {
     tasks: any;
+    isLoading: boolean;
 }
 
-function TasksCard({ tasks }: CardTasksProps) {
+function TasksCard({ tasks, isLoading }: CardTasksProps) {
     const theme = useMantineTheme();
 
     console.log('tasks', tasks);
@@ -27,25 +29,35 @@ function TasksCard({ tasks }: CardTasksProps) {
                         </tr>
                     </thead>
                     <tbody>
-                    {tasks.map((task: any) => (
-                        <tr key={task.key}>
-                            <td>
-                                <Button variant="light" color="blue" style={{ marginTop: 14 }} onClick={()=> window.open(task.url, "_blank")}>
-                                    {task.key}
-                                </Button>
-                            </td>
-                            <td>
-                                <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-                                    {task.fields.issuetype.name}
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-                                    {task.fields.status.name}
-                                </Text>
-                            </td>
-                        </tr>
-                    ))}
+
+                        {!isLoading ?
+                            tasks && tasks.length > 0 ?
+                                tasks.map((task: any) => (
+                                    <tr key={task.key}>
+                                        <td>
+                                            <Button variant="light" color="blue" style={{ marginTop: 14 }} onClick={() => window.open(task.url, "_blank")}>
+                                                {task.key}
+                                            </Button>
+                                        </td>
+                                        <td>
+                                            <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+                                                {task.fields.issuetype.name}
+                                            </Text>
+                                        </td>
+                                        <td>
+                                            <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+                                                {task.fields.status.name}
+                                            </Text>
+                                        </td>
+                                    </tr>
+                                )) : <td colSpan={3}><span style={{display:'flex', justifyContent:'center', marginTop:'15px'}}>You don't have any tasks currently</span></td>
+                            : <td colSpan={4}>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <div style={{ display: 'flex', textAlign: 'left', marginTop: '30px' }}>
+                                        <MoonLoader size={150} speedMultiplier={0.75} color={'gray'}></MoonLoader>
+                                    </div>
+                                </div>
+                            </td>}
                     </tbody>
                 </Table>
                 {/*

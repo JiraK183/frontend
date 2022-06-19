@@ -1,11 +1,13 @@
 import { Card, Image, Text, Badge, Button, Group, useMantineTheme, Modal } from '@mantine/core';
 import { useState } from 'react';
+import { MoonLoader } from 'react-spinners';
 
 interface CardDailyProps {
   complTasks: any;
+  isLoading: boolean;
 }
 
-function DailyCard({ complTasks }: CardDailyProps) {
+function DailyCard({ complTasks, isLoading }: CardDailyProps) {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
 
@@ -37,7 +39,8 @@ function DailyCard({ complTasks }: CardDailyProps) {
         <Text weight={500} size="lg" >
           Daily reward
         </Text>
-        {complTasks.length <= 0 ? 
+        { !isLoading? 
+        complTasks.length <= 0 ? 
           <>
             <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
               Not claimed yet!
@@ -53,7 +56,13 @@ function DailyCard({ complTasks }: CardDailyProps) {
           <Text size="xl" weight={500} style={{ color: '#edc24a', lineHeight: 1.5, fontSize:40 }}>
             Total: {dailyReward} JC
           </Text>
-          </>} 
+          </>
+          :
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', textAlign: 'left', marginTop: '30px' }}>
+              <MoonLoader size={150} speedMultiplier={0.75} color={'gray'}></MoonLoader>
+          </div>
+      </div>} 
       </Card>
     </div>
     </>

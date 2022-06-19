@@ -31,15 +31,19 @@ function App() {
   const [isInvIn, SetInvIn] = useState(false);
   const [isShopIn, SetShopIn] = useState(false);
   const [isLeadIn, SetLeadIn] = useState(false);
-  const [coins, SetCoins] = useState(0);
+  const [coins, SetCoins] = useState(-1);
   const [leaderboard, setLeaderboard] = useState([]);
-  const [medal, setMedal] = useState([]);
   const [stats, SetStats] = useState('');
+  const [isStatsLoading, setStatsLoading] = useState(true);
   const [actStories, SetActStories] = useState([]);
+  const [isActStoriesLoading, SetActStoriesLoading] = useState(true);
   const [complStories, SetComplStories] = useState([]);
+  const [isComplStoriesLoading, setComplStoriesLoading] = useState(true);
   const [shopItems, SetShopItems] = useState([]);
   const [userItems, SetUserItems] = useState([]);
   const [currentUser, SetCurrentUser] = useState('');
+
+  // spinners on loading elements
 
 
   useEffect(() => {
@@ -53,90 +57,58 @@ function App() {
     }
 
     if (isLoggedIn || tempLogin) {
-      SetCoins(0);
+      SetCoins(-1);
       setLeaderboard([]);
     }
   }, [isLoggedIn])
 
   useEffect(() => {
     async function fetchData() {
-      const response = await AppSvc.getCoins();
-      if (coins !== response.data.coins) {
-        SetCoins(response.data.coins);
-      }
-    }
-    fetchData();
-  }, [coins]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getStats();
-      if (stats.toString().length === 0) {
-        SetStats(response.data);
-      }
-    }
-    fetchData();
-  }, [stats]);
+      const getCoinsResponse = await AppSvc.getCoins();
+      // if (coins !== getCoinsResponse.data.coins) {
+      SetCoins(getCoinsResponse.data.coins);
+      // }
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getLeaderboard();
-      if (JSON.stringify(leaderboard) !== JSON.stringify(response.data.leaderboard)) {
-        setLeaderboard(response.data.leaderboard);
+      const getStatsResponse = await AppSvc.getStats();
+      if (coins !== getStatsResponse.data) {
+          SetStats(getStatsResponse.data);
+          setStatsLoading(false);
       }
-    }
-    fetchData();
-  }, [leaderboard]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getActiveStories();
-      if (actStories.length === 0 && response.data.stories.length > 0 && response.status === 200 /*!== JSON.stringify(response.data.stories)*/) {
-        SetActStories(response.data.stories);
+      const getLeaderboardResponse = await AppSvc.getLeaderboard();
+      if (JSON.stringify(leaderboard) !== JSON.stringify(getLeaderboardResponse.data.leaderboard)) {
+        setLeaderboard(getLeaderboardResponse.data.leaderboard);
       }
-    }
-    fetchData();
-  }, [actStories]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getCompletedTodayStories();
-      if (complStories.length === 0 && response.status === 200/*!== JSON.stringify(response.data.stories)*/) {
-        SetComplStories(response.data.stories);
+      const getActiveStoriesResponse = await AppSvc.getActiveStories();
+      SetActStories(getActiveStoriesResponse.data.stories);
+      SetActStoriesLoading(false);
+
+      const getCompletedTodayStoriesResponse = await AppSvc.getCompletedTodayStories();
+      if (complStories.length === 0 && getCompletedTodayStoriesResponse.status === 200) {
+        SetComplStories(getCompletedTodayStoriesResponse.data.stories);
+        setComplStoriesLoading(false);
+
       }
-    }
-    fetchData();
-  }, [complStories]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getMyItems();
+      const getMyItemsResponse = await AppSvc.getMyItems();
       if (userItems.length === 0) {
-        SetUserItems(response.data.products);
+        SetUserItems(getMyItemsResponse.data.products);
+      }
+
+      const getShopItemsResponse = await AppSvc.getShopItems();
+      if (shopItems.length === 0) {
+        SetShopItems(getShopItemsResponse.data.products);
+      }
+
+      const decodeUserInfoFromTokenResponse = await AppSvc.decodeUserInfoFromToken();
+      if (!currentUser) {
+        SetCurrentUser(decodeUserInfoFromTokenResponse);
       }
     }
     fetchData();
   }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.getShopItems();
-      if (shopItems.length === 0) {
-        SetShopItems(response.data.products);
-      }
-    }
-    fetchData();
-  }, [shopItems]);
-  
-  useEffect(() => {
-    async function fetchData() {
-      const response = await AppSvc.decodeUserInfoFromToken();
-      if(!currentUser){
-        SetCurrentUser(response);
-      }
-    }
-    fetchData();
-  }, [currentUser]);
 
   return <div>
 
@@ -173,7 +145,7 @@ function App() {
         </Container>
           : isShopIn ?
             <Container size='xl'>
-              <Shop shopItems={shopItems} currentUser={currentUser}/>
+              <Shop shopItems={shopItems} currentUser={currentUser} />
             </Container>
             : isInvIn ?
               <Container size='xl'>
@@ -188,12 +160,12 @@ function App() {
                   <Container fluid>
                     <SimpleGrid spacing="xl" cols={3} breakpoints={[{ maxWidth: 'lg', cols: 1 }]}>
                       <Group direction="column">
-                        <DailyCard complTasks={complStories} />
-                        <StatsCard stats={stats} />
+                        <DailyCard complTasks={complStories} isLoading={isComplStoriesLoading} />
+                        <StatsCard stats={stats} isLoading={isStatsLoading} />
                       </Group>
                       <Group direction="column">
-                        <RewardsCard complTasks={complStories} />
-                        <TasksCard tasks={actStories} />
+                        <RewardsCard complTasks={complStories} isLoading={isComplStoriesLoading} />
+                        <TasksCard tasks={actStories} isLoading={isActStoriesLoading} />
                       </Group>
                       <Leaderboard
                         elements={leaderboard}
@@ -203,11 +175,6 @@ function App() {
                 </Container>
         }
       </Container>
-
-      {/*<FooterSimple
-        links={linkss}
-      ></FooterSimple> */}
-
     </MantineProvider>
 
   </div>

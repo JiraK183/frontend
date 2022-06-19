@@ -1,10 +1,12 @@
 import { Card, Image, Text, Badge, Button, Group, useMantineTheme, Table } from '@mantine/core';
+import { MoonLoader } from 'react-spinners';
 
 interface CardRewardsProps {
     complTasks: any;
+    isLoading: boolean;
 }
 
-function RewardsCard({ complTasks }: CardRewardsProps) {
+function RewardsCard({ complTasks, isLoading }: CardRewardsProps) {
     const theme = useMantineTheme();
 
     console.log('CompletedTasks', complTasks);
@@ -19,16 +21,18 @@ function RewardsCard({ complTasks }: CardRewardsProps) {
                 <Text weight={500} size="lg">
                     Completed tasks
                 </Text>
-                {complTasks && complTasks.length > 0 ? 
-                                <Table verticalSpacing="xs" striped>
-                                <thead>
-                                    <tr>
-                                        <th>Issue ID</th>
-                                        <th>Type</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+
+                {!isLoading ?
+                    complTasks && complTasks.length > 0 ?
+                        <Table verticalSpacing="xs" striped>
+                            <thead>
+                                <tr>
+                                    <th>Issue ID</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {complTasks.map((task: any) => (
                                     <tr key={task.key}>
                                         <td>
@@ -48,13 +52,18 @@ function RewardsCard({ complTasks }: CardRewardsProps) {
                                         </td>
                                     </tr>
                                 ))}
-                                </tbody>
-                            </Table> :
-                 
-                <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-                    No tasks completed today!
-                </Text>}
-                
+                            </tbody>
+                        </Table> :
+
+                        <Text size="md" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+                            No tasks completed today!
+                        </Text> :
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ display: 'flex', textAlign: 'left', marginTop: '30px' }}>
+                            <MoonLoader size={150} speedMultiplier={0.75} color={'gray'}></MoonLoader>
+                        </div>
+                    </div>}
+
             </Card>
         </div>
     );

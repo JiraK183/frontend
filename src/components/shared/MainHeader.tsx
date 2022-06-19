@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { createStyles, Header, Container, Group, Burger, Paper, Transition, Button } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
-import UserInfoHeader from './UserInfoHeader';
+import { PulseLoader } from 'react-spinners';
 import AppSvc from '../../AppSvc';
-//import { MantineLogo } from '../../shared/MantineLogo';
 
 const HEADER_HEIGHT = 60;
 
@@ -98,7 +97,7 @@ interface HeaderResponsiveProps {
 }
 
 
-export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn, coins, userData ,SetInvIn}: HeaderResponsiveProps) {
+export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, SetShopIn, isLeadIn, SetLeadIn, coins, userData, SetInvIn }: HeaderResponsiveProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
@@ -133,7 +132,7 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
     SetInvIn(false);
   }
   //when inventory on
-  function InvOn(){
+  function InvOn() {
     SetInvIn(true);
     SetLeadIn(false);
     SetShopIn(false);
@@ -189,7 +188,13 @@ export function HeaderResponsive({ links, isLoggedIn, SetIsLoggedIn, isShopIn, S
 
           <Group position='right'>
             {/* temporary place to show coins */}
-            <Button ml={5} radius={20} color={'yellow'}>{coins} JC</Button>
+            <Button ml={5} radius={20} color={'yellow'}>
+              {coins && coins > -1 ?
+                coins :
+                <div style={{ marginRight: '5px' }}>
+                  <PulseLoader color='white' speedMultiplier={0.75} size={10}></PulseLoader>
+                </div>}
+               <span>&nbsp;JC</span></Button>
             <Button onClick={Logout}
             > Logout </Button>
           </Group>
