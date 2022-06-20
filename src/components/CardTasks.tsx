@@ -50,14 +50,14 @@ function TasksCard({ tasks, isLoading }: CardTasksProps) {
                                             </Text>
                                         </td>
                                     </tr>
-                                )) : <td colSpan={3}><span style={{display:'flex', justifyContent:'center', marginTop:'15px'}}>You don't have any tasks currently</span></td>
-                            : <td colSpan={4}>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                )) : <th colSpan={3}><span style={{display:'flex', justifyContent:'center', marginTop:'15px'}}>You don't have any tasks currently</span></th>
+                            : <th colSpan={4}>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <div style={{ display: 'flex', textAlign: 'left', marginTop: '30px' }}>
                                         <MoonLoader size={150} speedMultiplier={0.75} color={'gray'}></MoonLoader>
                                     </div>
                                 </div>
-                            </td>}
+                            </th>}
                     </tbody>
                 </Table>
                 {/*

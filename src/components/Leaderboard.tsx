@@ -44,13 +44,13 @@ function Leaderboard({ elements }: ILeaderboardsProps) {
                 <tbody>
                     {elements && elements.length > 0 ?
                         rows
-                        : <td colSpan={4}>
+                        : <th colSpan={4}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <div style={{ display: 'flex', textAlign: 'left', marginTop: '30px' }}>
                                     <MoonLoader size={150} speedMultiplier={0.75} color={'gray'}></MoonLoader>
                                 </div>
                             </div>
-                        </td>
+                        </th>
                     }
                 </tbody>
             </Table>

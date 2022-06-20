@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { HeaderResponsive } from './components/shared/MainHeader';
-import { FooterSimple } from './components/shared/Footer';
 import DailyCard from './components/CardDaily';
 import RewardsCard from './components/CardRewards';
 import StatsCard from './components/CardStats';
 import TasksCard from './components/CardTasks';
-import LeaderBoardCard from './components/CardLeaderBoard';
 import Shop from './components/shop/Shop';
 import Inventory from './components/inventory/Inventory';
 import Leaderboard from './components/Leaderboard';
@@ -15,8 +12,6 @@ import Leaderboard from './components/Leaderboard';
 import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme, Group } from '@mantine/core';
 import AppSvc from './AppSvc';
 import AuthenticationForm from './components/auth/AuthForm';
-import axios from 'axios';
-import { useSetState } from '@mantine/hooks';
 
 const linkss = [
   { link: '', label: 'Home' },
@@ -40,11 +35,9 @@ function App() {
   const [complStories, SetComplStories] = useState([]);
   const [isComplStoriesLoading, setComplStoriesLoading] = useState(true);
   const [shopItems, SetShopItems] = useState([]);
+  const [isShopItemsLoading, SetShopItemsLoading] = useState(true);
   const [userItems, SetUserItems] = useState([]);
   const [currentUser, SetCurrentUser] = useState('');
-
-  // spinners on loading elements
-
 
   useEffect(() => {
     let tempLogin = false;
@@ -66,9 +59,7 @@ function App() {
     async function fetchData() {
 
       const getCoinsResponse = await AppSvc.getCoins();
-      // if (coins !== getCoinsResponse.data.coins) {
       SetCoins(getCoinsResponse.data.coins);
-      // }
 
       const getStatsResponse = await AppSvc.getStats();
       if (coins !== getStatsResponse.data) {
@@ -98,9 +89,8 @@ function App() {
       }
 
       const getShopItemsResponse = await AppSvc.getShopItems();
-      if (shopItems.length === 0) {
-        SetShopItems(getShopItemsResponse.data.products);
-      }
+      SetShopItems(getShopItemsResponse.data.products);
+      SetShopItemsLoading(false);
 
       const decodeUserInfoFromTokenResponse = await AppSvc.decodeUserInfoFromToken();
       if (!currentUser) {
@@ -145,7 +135,7 @@ function App() {
         </Container>
           : isShopIn ?
             <Container size='xl'>
-              <Shop shopItems={shopItems} currentUser={currentUser} />
+              <Shop shopItems={shopItems} isLoading={isShopItemsLoading} currentUser={currentUser} />
             </Container>
             : isInvIn ?
               <Container size='xl'>
