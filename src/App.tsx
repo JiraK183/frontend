@@ -37,6 +37,7 @@ function App() {
   const [shopItems, SetShopItems] = useState([]);
   const [isShopItemsLoading, SetShopItemsLoading] = useState(true);
   const [userItems, SetUserItems] = useState([]);
+  const [isUserItemsLoading, SetUserItemsLoading] = useState(true);
   const [currentUser, SetCurrentUser] = useState('');
 
   useEffect(() => {
@@ -62,41 +63,47 @@ function App() {
       SetCoins(getCoinsResponse.data.coins);
 
       const getStatsResponse = await AppSvc.getStats();
-      if (coins !== getStatsResponse.data) {
+      if (getStatsResponse.status === 200) {
           SetStats(getStatsResponse.data);
           setStatsLoading(false);
       }
 
       const getLeaderboardResponse = await AppSvc.getLeaderboard();
-      if (JSON.stringify(leaderboard) !== JSON.stringify(getLeaderboardResponse.data.leaderboard)) {
+      if (getLeaderboardResponse.status === 200) {
         setLeaderboard(getLeaderboardResponse.data.leaderboard);
       }
 
       const getActiveStoriesResponse = await AppSvc.getActiveStories();
-      SetActStories(getActiveStoriesResponse.data.stories);
-      SetActStoriesLoading(false);
+      if(getActiveStoriesResponse.status === 200){
+        SetActStories(getActiveStoriesResponse.data.stories);
+        SetActStoriesLoading(false);
+      }
+
 
       const getCompletedTodayStoriesResponse = await AppSvc.getCompletedTodayStories();
-      if (complStories.length === 0 && getCompletedTodayStoriesResponse.status === 200) {
+      if (getCompletedTodayStoriesResponse.status === 200) {
         SetComplStories(getCompletedTodayStoriesResponse.data.stories);
         setComplStoriesLoading(false);
-
       }
 
       const getMyItemsResponse = await AppSvc.getMyItems();
-      if (userItems.length === 0) {
+      if (getMyItemsResponse.status === 200) {
         SetUserItems(getMyItemsResponse.data.products);
+        SetUserItemsLoading(false);
       }
 
       const getShopItemsResponse = await AppSvc.getShopItems();
-      SetShopItems(getShopItemsResponse.data.products);
-      SetShopItemsLoading(false);
+      if( getShopItemsResponse.status === 200){
+        SetShopItems(getShopItemsResponse.data.products);
+        SetShopItemsLoading(false);
+      }
 
       const decodeUserInfoFromTokenResponse = await AppSvc.decodeUserInfoFromToken();
       if (!currentUser) {
         SetCurrentUser(decodeUserInfoFromTokenResponse);
       }
     }
+
     fetchData();
   }, []);
 
@@ -139,7 +146,7 @@ function App() {
             </Container>
             : isInvIn ?
               <Container size='xl'>
-                <Inventory InvItems={userItems ? userItems : []} />
+                <Inventory InvItems={userItems ? userItems : []} isLoading={isUserItemsLoading}  />
               </Container>
               : isLeadIn ?
                 <Container size='xs'>
