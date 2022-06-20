@@ -1,23 +1,38 @@
 import { Card, Image, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core';
-import { statSync } from 'fs';
+import { useNotifications } from '@mantine/notifications';
 import AppSvc from '../../AppSvc';
 
 interface CardShopItemProps {
   item: any;
   showAdminOptions?: boolean;
+  userCoins?: number;
+
 }
 
-function ShopItemCard({ item, showAdminOptions }: CardShopItemProps) {
+function ShopItemCard({ item, showAdminOptions, userCoins }: CardShopItemProps) {
   const theme = useMantineTheme();
+
+  const notifications = useNotifications();
+  const showErrorNotification = () => notifications.showNotification({
+    title: 'Error',
+    message: 'You don\'t have enough JC to buy this item!',
+    color:'red'
+  });
 
   function deleteItem(itemID: string) {
     AppSvc.deleteShopItem(itemID);
     window.location.reload();
   }
 
-  function purchaseItem(itemID: string) {
-    AppSvc.purchaseShopItem(itemID);
-    window.location.reload();
+  function purchaseItem(itemID: string, itemPrice: number) {
+    if (userCoins && userCoins < itemPrice) {
+      showErrorNotification();
+    }
+    else {
+      AppSvc.purchaseShopItem(itemID);
+      window.location.reload();
+    }
+
   }
 
   const secondaryColor = theme.colorScheme === 'dark'
@@ -43,7 +58,7 @@ function ShopItemCard({ item, showAdminOptions }: CardShopItemProps) {
         </Text>
 
         <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-          <Button variant="light" color="blue" style={{ marginTop: 14 }} onClick={() => purchaseItem(item.id)}>
+          <Button variant="light" color="blue" style={{ marginTop: 14 }} onClick={() => purchaseItem(item.id, item.price)}>
             Purchase
           </Button>
 

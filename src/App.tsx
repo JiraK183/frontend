@@ -12,6 +12,7 @@ import Leaderboard from './components/Leaderboard';
 import { Grid, Button, Container, MantineProvider, SimpleGrid, Skeleton, useMantineTheme, Group } from '@mantine/core';
 import AppSvc from './AppSvc';
 import AuthenticationForm from './components/auth/AuthForm';
+import { NotificationsProvider } from '@mantine/notifications';
 
 const linkss = [
   { link: '', label: 'Home' },
@@ -119,6 +120,8 @@ function App() {
       }}
       withGlobalStyles
     >
+            <NotificationsProvider>
+
 
       <HeaderResponsive
         links={linkss}
@@ -142,7 +145,7 @@ function App() {
         </Container>
           : isShopIn ?
             <Container size='xl'>
-              <Shop shopItems={shopItems} isLoading={isShopItemsLoading} currentUser={currentUser} />
+              <Shop shopItems={shopItems} isLoading={isShopItemsLoading} currentUser={currentUser} userCoins={coins} />
             </Container>
             : isInvIn ?
               <Container size='xl'>
@@ -172,6 +175,7 @@ function App() {
                 </Container>
         }
       </Container>
+      </NotificationsProvider>
     </MantineProvider>
 
   </div>
