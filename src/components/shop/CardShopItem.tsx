@@ -1,6 +1,8 @@
-import { Card, Image, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core';
+import { Card, Image, Text, Badge, Button, Group, useMantineTheme, Modal } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
+import { useState } from 'react';
 import AppSvc from '../../AppSvc';
+import EditShopItem from './EditShopItem';
 
 interface CardShopItemProps {
   item: any;
@@ -12,16 +14,22 @@ interface CardShopItemProps {
 function ShopItemCard({ item, showAdminOptions, userCoins }: CardShopItemProps) {
   const theme = useMantineTheme();
 
+  const [editOpened, setEditOpened] = useState(false);
+
   const notifications = useNotifications();
   const showErrorNotification = () => notifications.showNotification({
     title: 'Error',
     message: 'You don\'t have enough JC to buy this item!',
-    color:'red'
+    color: 'red'
   });
 
   function deleteItem(itemID: string) {
     AppSvc.deleteShopItem(itemID);
     window.location.reload();
+  }
+
+  function editItem(item: any) {
+    setEditOpened(true);
   }
 
   function purchaseItem(itemID: string, itemPrice: number) {
@@ -41,6 +49,13 @@ function ShopItemCard({ item, showAdminOptions, userCoins }: CardShopItemProps) 
 
   return (
     <div style={{ width: 340, margin: '10px auto', }}>
+      <Modal
+        opened={editOpened}
+        onClose={() => setEditOpened(false)}
+        title="Edit store item"
+      >
+        <EditShopItem item={item} setModalState={setEditOpened}></EditShopItem>
+      </Modal>
       <Card shadow="sm" p="lg">
         <Card.Section>
           <Image src={item.image_url} height={300} />
@@ -62,9 +77,14 @@ function ShopItemCard({ item, showAdminOptions, userCoins }: CardShopItemProps) 
             Purchase
           </Button>
 
-          {showAdminOptions ? <Button color='red' style={{ marginTop: 14 }} onClick={() => deleteItem(item.id)}>
-            Remove
-          </Button> : ''}
+          {showAdminOptions ? <div>
+            <Button color='yellow' style={{ marginTop: 14, marginRight: 5 }} onClick={() => editItem(item)}>
+              Edit
+            </Button>
+            <Button color='red' style={{ marginTop: 14 }} onClick={() => deleteItem(item.id)}>
+              Remove
+            </Button>
+          </div> : ''}
         </Group>
       </Card>
     </div>

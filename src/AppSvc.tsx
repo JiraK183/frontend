@@ -137,17 +137,32 @@ export default class AppSvc {
     public static deleteShopItem(itemID: string) {
         const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
 
-        const body = {
-            name: itemID,
-        }
-
-        return axios.delete('https://jira.kurzcode.com/products/'+itemID+'/', {
+        return axios.delete('https://jira.kurzcode.com/products/' + itemID + '/', {
             'headers': {
                 'Authorization': token
             }
         }).then(res => {
             const data = res;
             console.log('deleteShopItem', data);
+            return data;
+        })
+    }
+    public static editShopItem(itemID: string, data: any) {
+        const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
+        const body = {
+            "name": data.title,
+            "description": data.desc,
+            "image_url": data.imageUrl,
+            "price": data.price
+        }
+
+        return axios.put('https://jira.kurzcode.com/products/' + itemID + '/', body, {
+            'headers': {
+                'Authorization': token
+            }
+        }).then(res => {
+            const data = res;
+            console.log('editShopItem', body);
             return data;
         })
     }
@@ -158,7 +173,7 @@ export default class AppSvc {
         const body = {
         }
 
-        return axios.post('https://jira.kurzcode.com/products/'+itemID+'/purchase/', body,{
+        return axios.post('https://jira.kurzcode.com/products/' + itemID + '/purchase/', body, {
             'headers': {
                 'Authorization': token
             }
@@ -184,11 +199,11 @@ export default class AppSvc {
     }
 
     public static getToken() {
-        if (localStorage.getItem('userDetails') && JSON.parse(`${localStorage.getItem('userDetails')}`).access_token ) {
+        if (localStorage.getItem('userDetails') && JSON.parse(`${localStorage.getItem('userDetails')}`).access_token) {
             const token = JSON.parse(`${localStorage.getItem('userDetails')}`).access_token;
             return token;
         }
-        else{
+        else {
             return null;
         }
     }
