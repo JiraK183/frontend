@@ -21,10 +21,11 @@ function EditShopItem({item, setModalState}: EditShopItemProps) {
     const [imageUrl, setImageUrl] = useState(item.image_url);
     const [price, setPrice] = useState(item.price);
 
-    function editItem (item: any) {
-        AppSvc.editShopItem(item.id, {title,desc,imageUrl,price});
-        window.location.reload();
+    async function editItem (item: any) {
+        await AppSvc.editShopItem(item.id, {title,desc,imageUrl,price});
         setModalState(false);
+        window.location.reload();
+
     }   
 
     return (
