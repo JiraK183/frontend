@@ -30,6 +30,7 @@ function AuthenticationForm ({isLoggedIn, SetIsLoggedIn}: AuthFormProps) {
       if(response) {
         AppSvc.saveTokenInLS(response.data);
         SetIsLoggedIn(true);
+        window.location.reload();
       } else {
         alert('Wrong credentials');
       }
